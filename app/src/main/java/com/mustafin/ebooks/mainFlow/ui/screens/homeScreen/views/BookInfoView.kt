@@ -32,14 +32,14 @@ fun BookInfoView(book: BookModel) {
             .fillMaxWidth()
             .clip(RoundedCornerShape(12.dp))
             .background(colorResource(id = R.color.secondary_background))
-            .padding(12.dp)
+            .padding(12.dp),
     ) {
         Spacer(
             modifier = Modifier
                 .width(150.dp)
                 .height(200.dp)
                 .clip(RoundedCornerShape(4.dp))
-                .background(Color.Yellow)
+                .background(colorResource(id = R.color.gray))
         )
 
         Spacer(
@@ -58,7 +58,7 @@ fun BookInfoView(book: BookModel) {
             Text(
                 text = book.name,
                 color = colorResource(id = R.color.text),
-                fontWeight = FontWeight.ExtraBold,
+                fontWeight = FontWeight.Bold,
                 fontSize = 21.sp,
                 fontFamily = APP_DEFAULT_FONT,
             )
