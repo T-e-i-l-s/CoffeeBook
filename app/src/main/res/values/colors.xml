@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--  Фоновые цвета  -->
+    <color name="background">#FFFFFF</color>
+    <color name="secondary_background">#F8F7F5</color>
+    <!--  Цвета контента  -->
+    <color name="text">#000000</color>
+    <color name="white">#FFFFFF</color>
+</resources>
