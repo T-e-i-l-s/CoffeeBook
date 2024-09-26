@@ -3,5 +3,8 @@
 
     <!--  Главный экран  -->
     <string name="my_books">Мои книги</string>
+
+    <!--  Экран добавления книги  -->
+    <string name="select_file">Выбрать .pdf файл</string>
     <string name="add_book">Добавить книгу</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.mustafin.ebooks
+package com.mustafin.ebooks.core.ui
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
