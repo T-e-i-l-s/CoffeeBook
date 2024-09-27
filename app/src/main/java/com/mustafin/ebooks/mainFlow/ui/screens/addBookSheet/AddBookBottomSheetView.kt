@@ -73,8 +73,8 @@ fun AddBookBottomSheetView(closeSheet: () -> Unit) {
 
         CustomButton(
             label = stringResource(id = R.string.add_book),
-            background = colorResource(id = R.color.black),
-            textColor = colorResource(id = R.color.white),
+            background = colorResource(id = R.color.text),
+            textColor = colorResource(id = R.color.background),
             enabled = viewModel.isSelected,
             modifier = Modifier.fillMaxWidth()
         ) { closeSheet() }

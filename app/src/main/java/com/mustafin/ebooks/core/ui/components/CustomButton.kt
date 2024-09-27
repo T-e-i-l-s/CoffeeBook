@@ -7,6 +7,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -23,9 +24,12 @@ fun CustomButton(
 ) {
     Button(
         onClick = onClick,
-        colors = ButtonDefaults.buttonColors(background),
+        colors = ButtonDefaults.buttonColors(
+            containerColor = background,
+            disabledContainerColor = background
+        ),
         shape = RoundedCornerShape(12.dp),
-        modifier = modifier,
+        modifier = modifier.alpha(if (!enabled) 0.4f else 1f),
         enabled = enabled,
         contentPadding = PaddingValues(12.dp)
     ) {

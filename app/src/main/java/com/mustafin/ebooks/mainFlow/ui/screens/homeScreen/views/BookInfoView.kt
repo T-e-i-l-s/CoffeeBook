@@ -57,7 +57,7 @@ fun BookInfoView(book: BookModel) {
             Text(
                 text = book.name,
                 color = colorResource(id = R.color.text),
-                fontWeight = FontWeight.Bold,
+                fontWeight = FontWeight.Medium,
                 fontSize = 21.sp,
                 fontFamily = APP_DEFAULT_FONT,
             )

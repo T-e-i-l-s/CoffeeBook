@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--  Фоновые цвета  -->
+    <color name="background">#141414</color>
+    <color name="secondary_background">#1B1B1B</color>
+    <!--  Цвета контента  -->
+    <color name="text">#FFFFFF</color>
+    <color name="gray">#626262</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+</resources>
