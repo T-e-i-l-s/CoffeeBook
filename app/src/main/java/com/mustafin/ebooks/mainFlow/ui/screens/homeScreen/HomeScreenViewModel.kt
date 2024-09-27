@@ -1,5 +1,8 @@
 package com.mustafin.ebooks.mainFlow.ui.screens.homeScreen
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mustafin.ebooks.core.domain.enums.LoadingStatus
@@ -30,5 +33,18 @@ class HomeScreenViewModel @Inject constructor(
             books = booksRepository.getBooks()
             loadingStatus = LoadingStatus.LOADED
         }
+    }
+
+
+    var isAddBookSheetOpened by mutableStateOf(false)
+        private set
+
+
+    fun openAddBookSheet() {
+        isAddBookSheetOpened = true
+    }
+
+    fun closeAddBookSheet() {
+        isAddBookSheetOpened = false
     }
 }

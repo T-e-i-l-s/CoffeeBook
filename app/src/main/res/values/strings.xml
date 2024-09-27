@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Coffee Book</string>
+    <string name="app_name">Coffee Reader</string>
 
     <!--  Главный экран  -->
     <string name="my_books">Мои книги</string>
