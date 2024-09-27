@@ -60,6 +60,10 @@ android {
 }
 
 dependencies {
+    // Room
+    implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.room.runtime)
+    kapt(libs.androidx.room.compiler)
     // PDF
     implementation(libs.itextg)
     // DI dependencies

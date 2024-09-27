@@ -20,7 +20,6 @@ class AddBookPageViewModel(private val application: Application): AndroidViewMod
     fun onFileSelected(uri: Uri) {
         isSelected = true
         selectedFileName = getFileName(uri)
-        println(PdfReader(application).extractTextFromPdf(uri))
     }
 
     // Метод для получения названия файла по URI
