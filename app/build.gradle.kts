@@ -9,6 +9,14 @@ android {
     namespace = "com.mustafin.ebooks"
     compileSdk = 34
 
+    packaging {
+        resources {
+            excludes.add("META-INF/DEPENDENCIES")
+            excludes.add("META-INF/LICENSE")
+            excludes.add("META-INF/NOTICE")
+        }
+    }
+
     defaultConfig {
         applicationId = "com.mustafin.ebooks"
         minSdk = 26
@@ -52,6 +60,8 @@ android {
 }
 
 dependencies {
+    // PDF
+    implementation(libs.itextg)
     // DI dependencies
     implementation(libs.dagger.hilt.android)
     kapt(libs.hilt.android.compiler)

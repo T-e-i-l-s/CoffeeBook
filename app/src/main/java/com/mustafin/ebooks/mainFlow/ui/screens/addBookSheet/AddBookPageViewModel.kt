@@ -8,6 +8,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.AndroidViewModel
+import com.mustafin.ebooks.mainFlow.domain.PdfReader
 
 class AddBookPageViewModel(private val application: Application): AndroidViewModel(application) {
     var selectedFileName: String? by mutableStateOf(null)
@@ -19,6 +20,7 @@ class AddBookPageViewModel(private val application: Application): AndroidViewMod
     fun onFileSelected(uri: Uri) {
         isSelected = true
         selectedFileName = getFileName(uri)
+        println(PdfReader(application).extractTextFromPdf(uri))
     }
 
     // Метод для получения названия файла по URI
