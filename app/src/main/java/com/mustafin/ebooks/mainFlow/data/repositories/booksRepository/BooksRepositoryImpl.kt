@@ -5,6 +5,7 @@ import com.mustafin.ebooks.core.data.source.local.booksDatabase.BooksDatabase
 import com.mustafin.ebooks.mainFlow.domain.models.ShortBookModel
 import javax.inject.Inject
 
+// Репозиторий для работы с книгами
 class BooksRepositoryImpl @Inject constructor(
     private val booksDatabase: BooksDatabase
 ): BooksRepository {

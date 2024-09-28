@@ -30,8 +30,9 @@ import com.mustafin.ebooks.R
 import com.mustafin.ebooks.core.domain.APP_DEFAULT_FONT
 import com.mustafin.ebooks.core.ui.components.CustomButton
 
+// View для импорта книг
 @Composable
-fun AddBookBottomSheetView(closeSheet: () -> Unit) {
+fun AddBookBottomSheetView() {
     val viewModel: AddBookViewModel = hiltViewModel()
 
     // Лаунчер для выбора файла
@@ -120,7 +121,23 @@ fun AddBookBottomSheetView(closeSheet: () -> Unit) {
                 )
             }
 
-            else -> {}
+            AddBookViewStatus.COMPLETED -> {
+                Icon(
+                    painter = painterResource(id = R.drawable.check_icon),
+                    contentDescription = null,
+                    tint = colorResource(id = R.color.text),
+                    modifier = Modifier.size(31.dp),
+                )
+
+                Spacer(modifier = Modifier.height(4.dp))
+
+                Text(
+                    text = stringResource(id = R.string.book_processing_success),
+                    color = colorResource(id = R.color.text),
+                    fontSize = 18.sp,
+                    fontFamily = APP_DEFAULT_FONT
+                )
+            }
         }
     }
 }

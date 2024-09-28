@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.sp
 import com.mustafin.ebooks.R
 import com.mustafin.ebooks.core.domain.APP_DEFAULT_FONT
 
+// Кнопка "Выбрать .pdf файл" на View импорта книги
 @Composable
 fun SelectFileButtonView(onClick: () -> Unit) {
     Button(

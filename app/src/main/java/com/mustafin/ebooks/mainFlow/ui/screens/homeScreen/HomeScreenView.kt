@@ -42,7 +42,6 @@ import com.mustafin.ebooks.mainFlow.ui.screens.homeScreen.views.addBookSheet.Add
 @Composable
 fun HomeScreenView() {
     val viewModel: HomeScreenViewModel = hiltViewModel()
-    val addBookViewModel: AddBookViewModel = hiltViewModel()
 
     LazyColumn(
         modifier = Modifier
@@ -93,15 +92,21 @@ fun HomeScreenView() {
     }
 
     if (viewModel.isAddBookSheetOpened) {
+        // Всплывающее снизу модальное окно для импорта книги
+
+        // ViewModel этого всплывающего окна
+        val addBookViewModel: AddBookViewModel = hiltViewModel()
+
         ModalBottomSheet(
             onDismissRequest = {
                 viewModel.closeAddBookSheet()
+                viewModel.loadData()
                 addBookViewModel.resetState()
             },
             containerColor = colorResource(id = R.color.background),
             windowInsets = WindowInsets(0, 0, 0, 0)
         ) {
-            AddBookBottomSheetView { viewModel.closeAddBookSheet() }
+            AddBookBottomSheetView()
         }
     }
 }

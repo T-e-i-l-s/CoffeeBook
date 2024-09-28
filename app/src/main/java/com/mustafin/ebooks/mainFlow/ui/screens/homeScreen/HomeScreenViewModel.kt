@@ -4,7 +4,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.mustafin.ebooks.core.domain.enums.LoadingStatus
 import com.mustafin.ebooks.mainFlow.data.repositories.booksRepository.BooksRepositoryImpl
 import com.mustafin.ebooks.mainFlow.domain.models.ShortBookModel
@@ -27,19 +26,20 @@ class HomeScreenViewModel @Inject constructor(
 
     init {
         // При создании View Model загружем данные
-        loadInitialData()
+        loadData()
     }
 
-    private fun loadInitialData() {
+    fun loadData() {
         CoroutineScope(Dispatchers.IO).launch {
+            loadingStatus = LoadingStatus.LOADING
             books = booksRepository.getBooks()
             loadingStatus = LoadingStatus.LOADED
         }
     }
 
+    // Открыто ли модальное окно импорта книги
     var isAddBookSheetOpened by mutableStateOf(false)
         private set
-
 
     fun openAddBookSheet() {
         isAddBookSheetOpened = true
