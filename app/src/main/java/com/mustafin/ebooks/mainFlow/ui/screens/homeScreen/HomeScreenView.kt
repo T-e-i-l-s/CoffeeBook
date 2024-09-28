@@ -33,7 +33,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.mustafin.ebooks.R
 import com.mustafin.ebooks.core.domain.APP_DEFAULT_FONT
 import com.mustafin.ebooks.core.domain.enums.LoadingStatus
-import com.mustafin.ebooks.mainFlow.ui.screens.addBookSheet.AddBookBottomSheetView
+import com.mustafin.ebooks.mainFlow.ui.screens.homeScreen.views.addBookSheet.AddBookBottomSheetView
 import com.mustafin.ebooks.mainFlow.ui.screens.homeScreen.views.BookInfoView
 
 // Главный экран приложения
