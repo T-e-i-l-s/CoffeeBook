@@ -9,24 +9,34 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import com.mustafin.ebooks.core.data.source.local.booksDatabase.BookEntity
+import com.mustafin.ebooks.mainFlow.data.repositories.booksRepository.BooksRepositoryImpl
 import com.mustafin.ebooks.mainFlow.domain.PdfReader
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class AddBookViewModel @Inject constructor(
     private val application: Application,
+    private val booksRepository: BooksRepositoryImpl,
     private val pdfReader: PdfReader
-): AndroidViewModel(application) {
+) : AndroidViewModel(application) {
     var viewStatus by mutableStateOf(AddBookViewStatus.WAITING)
 
     fun precessData() {
-        viewModelScope.launch {
+        CoroutineScope(Dispatchers.IO).launch {
             viewStatus = AddBookViewStatus.PROCESSING
             try {
                 val bookContent = pdfReader.extractTextFromPdf(selectedFileUri!!)
-                println(bookContent)
+                booksRepository.addBook(
+                    BookEntity(
+                        name = selectedFileName!!,
+                        content = bookContent
+                    )
+                )
                 viewStatus = AddBookViewStatus.COMPLETED
             } catch (e: Exception) {
                 viewStatus = AddBookViewStatus.ERROR
@@ -37,7 +47,7 @@ class AddBookViewModel @Inject constructor(
     var selectedFileName: String? by mutableStateOf(null)
         private set
 
-    var selectedFileUri: Uri? by mutableStateOf(null)
+    private var selectedFileUri: Uri? by mutableStateOf(null)
         private set
 
     var isSelected: Boolean by mutableStateOf(false)

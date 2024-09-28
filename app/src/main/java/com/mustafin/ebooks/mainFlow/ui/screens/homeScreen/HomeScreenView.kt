@@ -44,54 +44,54 @@ fun HomeScreenView() {
     val viewModel: HomeScreenViewModel = hiltViewModel()
     val addBookViewModel: AddBookViewModel = hiltViewModel()
 
-    if (viewModel.loadingStatus == LoadingStatus.LOADED) {
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(colorResource(id = R.color.background))
-                .padding(horizontal = 12.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
-            item {
-                Spacer(modifier = Modifier.statusBarsPadding())
+    LazyColumn(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(colorResource(id = R.color.background))
+            .padding(horizontal = 12.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp)
+    ) {
+        item {
+            Spacer(modifier = Modifier.statusBarsPadding())
 
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        text = stringResource(id = R.string.my_books),
-                        color = colorResource(id = R.color.text),
-                        fontWeight = FontWeight.ExtraBold,
-                        fontSize = 24.sp,
-                        fontFamily = APP_DEFAULT_FONT,
-                    )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = stringResource(id = R.string.my_books),
+                    color = colorResource(id = R.color.text),
+                    fontWeight = FontWeight.ExtraBold,
+                    fontSize = 24.sp,
+                    fontFamily = APP_DEFAULT_FONT,
+                )
 
-                    Icon(
-                        painter = painterResource(id = R.drawable.plus_icon),
-                        contentDescription = null,
-                        tint = colorResource(id = R.color.text),
-                        modifier = Modifier
-                            .size(28.dp)
-                            .clickable(
-                                interactionSource = remember { MutableInteractionSource() },
-                                indication = null,
-                            ) { viewModel.openAddBookSheet() }
-                    )
-                }
+                Icon(
+                    painter = painterResource(id = R.drawable.plus_icon),
+                    contentDescription = null,
+                    tint = colorResource(id = R.color.text),
+                    modifier = Modifier
+                        .size(28.dp)
+                        .clickable(
+                            interactionSource = remember { MutableInteractionSource() },
+                            indication = null,
+                        ) { viewModel.openAddBookSheet() }
+                )
             }
+        }
 
+        if (viewModel.loadingStatus == LoadingStatus.LOADED) {
             items(viewModel.books) {
                 BookInfoView(book = it)
             }
+        }
 
-            item {
-                Spacer(modifier = Modifier.navigationBarsPadding())
-            }
+        item {
+            Spacer(modifier = Modifier.navigationBarsPadding())
         }
     }
-    
+
     if (viewModel.isAddBookSheetOpened) {
         ModalBottomSheet(
             onDismissRequest = {

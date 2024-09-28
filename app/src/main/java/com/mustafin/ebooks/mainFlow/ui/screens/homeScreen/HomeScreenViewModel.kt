@@ -7,8 +7,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mustafin.ebooks.core.domain.enums.LoadingStatus
 import com.mustafin.ebooks.mainFlow.data.repositories.booksRepository.BooksRepositoryImpl
-import com.mustafin.ebooks.mainFlow.domain.models.BookModel
+import com.mustafin.ebooks.mainFlow.domain.models.ShortBookModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -20,7 +22,7 @@ class HomeScreenViewModel @Inject constructor(
     var loadingStatus = LoadingStatus.LOADING
         private set
 
-    var books: List<BookModel> = emptyList()
+    var books: List<ShortBookModel> = emptyList()
         private set
 
     init {
@@ -29,12 +31,11 @@ class HomeScreenViewModel @Inject constructor(
     }
 
     private fun loadInitialData() {
-        viewModelScope.launch {
+        CoroutineScope(Dispatchers.IO).launch {
             books = booksRepository.getBooks()
             loadingStatus = LoadingStatus.LOADED
         }
     }
-
 
     var isAddBookSheetOpened by mutableStateOf(false)
         private set

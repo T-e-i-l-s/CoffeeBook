@@ -1,6 +1,10 @@
 package com.mustafin.ebooks.mainFlow.di
 
 import android.content.Context
+import androidx.room.Room
+import com.mustafin.ebooks.core.data.source.local.booksDatabase.BooksDao
+import com.mustafin.ebooks.core.data.source.local.booksDatabase.BooksDatabase
+import com.mustafin.ebooks.core.data.source.local.booksDatabase.BooksDatabase_Impl
 import com.mustafin.ebooks.mainFlow.data.repositories.booksRepository.BooksRepositoryImpl
 import com.mustafin.ebooks.mainFlow.domain.PdfReader
 import dagger.Module
@@ -15,8 +19,18 @@ import javax.inject.Singleton
 object MainFlowModule {
     @Provides
     @Singleton
-    fun provideBooksRepository(): BooksRepositoryImpl {
-        return BooksRepositoryImpl()
+    fun provideBooksRepository(booksDatabase: BooksDatabase): BooksRepositoryImpl {
+        return BooksRepositoryImpl(booksDatabase)
+    }
+
+    @Provides
+    @Singleton
+    fun provideBooksDatabase(@ApplicationContext context: Context): BooksDatabase {
+        return Room.databaseBuilder(
+            context.applicationContext,
+            BooksDatabase::class.java,
+            "books_database" // Имя базы данных
+        ).build()
     }
 
     @Provides

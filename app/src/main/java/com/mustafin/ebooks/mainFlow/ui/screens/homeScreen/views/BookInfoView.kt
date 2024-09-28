@@ -22,10 +22,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mustafin.ebooks.R
 import com.mustafin.ebooks.core.domain.APP_DEFAULT_FONT
-import com.mustafin.ebooks.mainFlow.domain.models.BookModel
+import com.mustafin.ebooks.mainFlow.domain.models.ShortBookModel
 
 @Composable
-fun BookInfoView(book: BookModel) {
+fun BookInfoView(book: ShortBookModel) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
