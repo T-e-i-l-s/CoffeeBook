@@ -9,25 +9,35 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.delay
+import com.mustafin.ebooks.mainFlow.domain.PdfReader
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class AddBookViewModel(private val application: Application): AndroidViewModel(application) {
+@HiltViewModel
+class AddBookViewModel @Inject constructor(
+    private val application: Application,
+    private val pdfReader: PdfReader
+): AndroidViewModel(application) {
     var viewStatus by mutableStateOf(AddBookViewStatus.WAITING)
 
-    var progress by mutableStateOf(0f)
     fun precessData() {
         viewModelScope.launch {
             viewStatus = AddBookViewStatus.PROCESSING
-            delay(500)
-            progress = 1f
-            delay(100)
-            viewStatus = AddBookViewStatus.COMPLETED
+            try {
+                val bookContent = pdfReader.extractTextFromPdf(selectedFileUri!!)
+                println(bookContent)
+                viewStatus = AddBookViewStatus.COMPLETED
+            } catch (e: Exception) {
+                viewStatus = AddBookViewStatus.ERROR
+            }
         }
     }
 
-
     var selectedFileName: String? by mutableStateOf(null)
+        private set
+
+    var selectedFileUri: Uri? by mutableStateOf(null)
         private set
 
     var isSelected: Boolean by mutableStateOf(false)
@@ -35,6 +45,7 @@ class AddBookViewModel(private val application: Application): AndroidViewModel(a
 
     fun onFileSelected(uri: Uri) {
         isSelected = true
+        selectedFileUri = uri
         selectedFileName = getFileName(uri)
     }
 
@@ -50,5 +61,12 @@ class AddBookViewModel(private val application: Application): AndroidViewModel(a
             }
         }
         return fileName
+    }
+
+    // Метод для сброса состояния
+    fun resetState() {
+        viewStatus = AddBookViewStatus.WAITING
+        selectedFileName = null
+        isSelected = false
     }
 }

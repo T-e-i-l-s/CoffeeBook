@@ -4,7 +4,10 @@
     <!--  Главный экран  -->
     <string name="my_books">Мои книги</string>
 
-    <!--  Экран добавления книги  -->
+    <!--  View добавления книги  -->
     <string name="select_file">Выбрать .pdf файл</string>
     <string name="add_book">Добавить книгу</string>
+    <string name="book_processing">Готовим книгу</string>
+    <string name="book_processing_success">Книга успешно добалена</string>
+    <string name="book_processing_failed">Произошла ошибка</string>
 </resources>

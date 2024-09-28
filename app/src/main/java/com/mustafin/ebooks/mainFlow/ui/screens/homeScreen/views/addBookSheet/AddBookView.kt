@@ -4,28 +4,35 @@ import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.mustafin.ebooks.R
 import com.mustafin.ebooks.core.domain.APP_DEFAULT_FONT
 import com.mustafin.ebooks.core.ui.components.CustomButton
 
 @Composable
 fun AddBookBottomSheetView(closeSheet: () -> Unit) {
-    val viewModel: AddBookViewModel = viewModel()
+    val viewModel: AddBookViewModel = hiltViewModel()
 
     // Лаунчер для выбора файла
     val selectFileLauncher = rememberLauncherForActivityResult(
@@ -39,36 +46,81 @@ fun AddBookBottomSheetView(closeSheet: () -> Unit) {
 
     Column(
         modifier = Modifier
+            .fillMaxWidth()
+            .heightIn(min = 100.dp)
             .background(colorResource(id = R.color.background))
             .padding(horizontal = 12.dp)
             .padding(bottom = 12.dp)
             .navigationBarsPadding(),
-        horizontalAlignment = Alignment.End
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
     ) {
-        SelectFileButtonView {
-            selectFileLauncher.launch(arrayOf("application/pdf"))
+        when (viewModel.viewStatus) {
+            AddBookViewStatus.WAITING -> {
+                SelectFileButtonView {
+                    selectFileLauncher.launch(arrayOf("application/pdf"))
+                }
+
+                if (viewModel.isSelected) {
+                    Spacer(modifier = Modifier.height(12.dp))
+
+                    Text(
+                        text = viewModel.selectedFileName!!,
+                        color = colorResource(id = R.color.text),
+                        fontSize = 15.sp,
+                        fontFamily = APP_DEFAULT_FONT,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(12.dp))
+
+                CustomButton(
+                    label = stringResource(id = R.string.add_book),
+                    background = colorResource(id = R.color.text),
+                    textColor = colorResource(id = R.color.background),
+                    enabled = viewModel.isSelected,
+                    modifier = Modifier.fillMaxWidth()
+                ) { viewModel.precessData() }
+            }
+
+            AddBookViewStatus.PROCESSING -> {
+                CircularProgressIndicator(
+                    modifier = Modifier.size(21.dp),
+                    color = colorResource(id = R.color.text),
+                    trackColor = Color.Transparent,
+                    strokeWidth = 2.dp
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                Text(
+                    text = stringResource(id = R.string.book_processing),
+                    color = colorResource(id = R.color.text),
+                    fontSize = 18.sp,
+                    fontFamily = APP_DEFAULT_FONT
+                )
+            }
+
+            AddBookViewStatus.ERROR -> {
+                Icon(
+                    painter = painterResource(id = R.drawable.error_icon),
+                    contentDescription = null,
+                    tint = colorResource(id = R.color.text),
+                    modifier = Modifier.size(31.dp),
+                )
+
+                Spacer(modifier = Modifier.height(4.dp))
+
+                Text(
+                    text = stringResource(id = R.string.book_processing_failed),
+                    color = colorResource(id = R.color.text),
+                    fontSize = 18.sp,
+                    fontFamily = APP_DEFAULT_FONT
+                )
+            }
+
+            else -> {}
         }
-
-        if (viewModel.isSelected) {
-            Spacer(modifier = Modifier.height(12.dp))
-
-            Text(
-                text = viewModel.selectedFileName!!,
-                color = colorResource(id = R.color.text),
-                fontSize = 15.sp,
-                fontFamily = APP_DEFAULT_FONT,
-                modifier = Modifier.fillMaxWidth()
-            )
-        }
-
-        Spacer(modifier = Modifier.height(12.dp))
-
-        CustomButton(
-            label = stringResource(id = R.string.add_book),
-            background = colorResource(id = R.color.text),
-            textColor = colorResource(id = R.color.background),
-            enabled = viewModel.isSelected,
-            modifier = Modifier.fillMaxWidth()
-        ) { closeSheet() }
     }
 }

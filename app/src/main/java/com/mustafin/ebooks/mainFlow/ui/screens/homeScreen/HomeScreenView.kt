@@ -33,14 +33,16 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.mustafin.ebooks.R
 import com.mustafin.ebooks.core.domain.APP_DEFAULT_FONT
 import com.mustafin.ebooks.core.domain.enums.LoadingStatus
-import com.mustafin.ebooks.mainFlow.ui.screens.homeScreen.views.addBookSheet.AddBookBottomSheetView
 import com.mustafin.ebooks.mainFlow.ui.screens.homeScreen.views.BookInfoView
+import com.mustafin.ebooks.mainFlow.ui.screens.homeScreen.views.addBookSheet.AddBookBottomSheetView
+import com.mustafin.ebooks.mainFlow.ui.screens.homeScreen.views.addBookSheet.AddBookViewModel
 
 // Главный экран приложения
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreenView() {
     val viewModel: HomeScreenViewModel = hiltViewModel()
+    val addBookViewModel: AddBookViewModel = hiltViewModel()
 
     if (viewModel.loadingStatus == LoadingStatus.LOADED) {
         LazyColumn(
@@ -92,7 +94,10 @@ fun HomeScreenView() {
     
     if (viewModel.isAddBookSheetOpened) {
         ModalBottomSheet(
-            onDismissRequest = { viewModel.closeAddBookSheet()},
+            onDismissRequest = {
+                viewModel.closeAddBookSheet()
+                addBookViewModel.resetState()
+            },
             containerColor = colorResource(id = R.color.background),
             windowInsets = WindowInsets(0, 0, 0, 0)
         ) {
