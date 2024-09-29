@@ -4,17 +4,22 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.PageSize
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ModalBottomSheet
@@ -46,15 +51,16 @@ fun HomeScreenView(openReader: (bookId: Int) -> Unit) {
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            .background(colorResource(id = R.color.background))
-            .padding(horizontal = 12.dp),
+            .background(colorResource(id = R.color.background)),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         item {
             Spacer(modifier = Modifier.statusBarsPadding())
 
             Row(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 12.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -78,11 +84,20 @@ fun HomeScreenView(openReader: (bookId: Int) -> Unit) {
                         ) { viewModel.openAddBookSheet() }
                 )
             }
-        }
 
-        if (viewModel.loadingStatus == LoadingStatus.LOADED) {
-            items(viewModel.books) {
-                BookInfoView(book = it, openReader = openReader)
+            Spacer(modifier = Modifier.height(8.dp))
+
+            if (viewModel.loadingStatus == LoadingStatus.LOADED) {
+                val pagerState = rememberPagerState(pageCount = { viewModel.books.size })
+                HorizontalPager(
+                    modifier = Modifier.fillMaxWidth(),
+                    pageSize = PageSize.Fixed(330.dp),
+                    contentPadding = PaddingValues(horizontal = 12.dp),
+                    pageSpacing = 12.dp,
+                    state = pagerState
+                ) {
+                    BookInfoView(book = viewModel.books[it], openReader = openReader)
+                }
             }
         }
 
