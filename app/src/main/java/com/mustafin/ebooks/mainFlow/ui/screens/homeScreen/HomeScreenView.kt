@@ -38,6 +38,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.mustafin.ebooks.R
 import com.mustafin.ebooks.core.domain.APP_DEFAULT_FONT
 import com.mustafin.ebooks.core.domain.enums.LoadingStatus
+import com.mustafin.ebooks.core.ui.components.CustomButton
 import com.mustafin.ebooks.mainFlow.ui.screens.homeScreen.views.BookInfoView
 import com.mustafin.ebooks.mainFlow.ui.screens.homeScreen.views.addBookSheet.AddBookBottomSheetView
 import com.mustafin.ebooks.mainFlow.ui.screens.homeScreen.views.addBookSheet.AddBookViewModel
@@ -73,15 +74,10 @@ fun HomeScreenView(openReader: (bookId: Int) -> Unit) {
                 )
 
                 Icon(
-                    painter = painterResource(id = R.drawable.plus_icon),
+                    painter = painterResource(id = R.drawable.arrow_right_icon),
                     contentDescription = null,
-                    tint = colorResource(id = R.color.text),
-                    modifier = Modifier
-                        .size(28.dp)
-                        .clickable(
-                            interactionSource = remember { MutableInteractionSource() },
-                            indication = null,
-                        ) { viewModel.openAddBookSheet() }
+                    tint = colorResource(id = R.color.gray),
+                    modifier = Modifier.size(25.dp)
                 )
             }
 
@@ -99,6 +95,17 @@ fun HomeScreenView(openReader: (bookId: Int) -> Unit) {
                     BookInfoView(book = viewModel.books[it], openReader = openReader)
                 }
             }
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            CustomButton(
+                label = stringResource(id = R.string.add_book),
+                background = colorResource(id = R.color.text),
+                textColor = colorResource(id = R.color.background),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 12.dp)
+            ) { viewModel.openAddBookSheet() }
         }
 
         item {

@@ -19,7 +19,7 @@ fun CustomButton(
     background: Color,
     textColor: Color,
     modifier: Modifier = Modifier,
-    enabled: Boolean = false,
+    enabled: Boolean = true,
     onClick: () -> Unit,
 ) {
     Button(
