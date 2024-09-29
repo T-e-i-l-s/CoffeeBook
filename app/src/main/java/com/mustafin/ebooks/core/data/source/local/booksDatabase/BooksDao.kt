@@ -13,6 +13,6 @@ interface BooksDao {
     @Query("SELECT * FROM books")
     suspend fun getBooks(): List<BookEntity>
 
-    @Query("SELECT * FROM books WHERE id = :userId")
-    suspend fun getBookById(userId: Int): BookEntity?
+    @Query("SELECT * FROM books WHERE id = :bookId")
+    suspend fun getBookById(bookId: Int): BookEntity?
 }

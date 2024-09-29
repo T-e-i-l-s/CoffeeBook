@@ -4,6 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.mustafin.ebooks.core.domain.extensions.toBitmap
 import com.mustafin.ebooks.mainFlow.domain.models.ShortBookModel
+import com.mustafin.ebooks.readerFlow.domain.models.BookModel
 
 @Entity(tableName = "books")
 data class BookEntity(
@@ -17,6 +18,14 @@ data class BookEntity(
             id,
             name,
             preview.toBitmap(),
+        )
+    }
+
+    fun toBookModel(): BookModel {
+        return BookModel(
+            id,
+            name,
+            content,
         )
     }
 

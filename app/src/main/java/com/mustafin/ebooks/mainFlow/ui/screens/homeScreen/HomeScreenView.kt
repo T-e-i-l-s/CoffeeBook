@@ -40,7 +40,7 @@ import com.mustafin.ebooks.mainFlow.ui.screens.homeScreen.views.addBookSheet.Add
 // Главный экран приложения
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreenView() {
+fun HomeScreenView(openReader: (bookId: Int) -> Unit) {
     val viewModel: HomeScreenViewModel = hiltViewModel()
 
     LazyColumn(
@@ -82,7 +82,7 @@ fun HomeScreenView() {
 
         if (viewModel.loadingStatus == LoadingStatus.LOADED) {
             items(viewModel.books) {
-                BookInfoView(book = it)
+                BookInfoView(book = it, openReader = openReader)
             }
         }
 

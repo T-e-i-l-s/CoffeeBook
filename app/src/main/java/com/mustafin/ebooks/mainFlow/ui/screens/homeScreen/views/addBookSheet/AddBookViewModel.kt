@@ -9,7 +9,7 @@ import androidx.lifecycle.AndroidViewModel
 import com.mustafin.ebooks.core.data.source.local.booksDatabase.BookEntity
 import com.mustafin.ebooks.core.domain.extensions.getFileName
 import com.mustafin.ebooks.core.domain.extensions.toByteArray
-import com.mustafin.ebooks.mainFlow.data.repositories.booksRepository.BooksRepositoryImpl
+import com.mustafin.ebooks.core.data.repositories.booksRepository.BooksRepositoryImpl
 import com.mustafin.ebooks.mainFlow.domain.PdfReader
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
