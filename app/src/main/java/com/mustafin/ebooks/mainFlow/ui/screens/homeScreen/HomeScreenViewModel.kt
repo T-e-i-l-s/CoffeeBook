@@ -4,13 +4,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.mustafin.ebooks.core.domain.enums.LoadingStatus
 import com.mustafin.ebooks.mainFlow.data.repositories.booksRepository.BooksRepositoryImpl
 import com.mustafin.ebooks.mainFlow.domain.models.ShortBookModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 // View Model главного экрана
@@ -18,10 +19,10 @@ import javax.inject.Inject
 class HomeScreenViewModel @Inject constructor(
     private val booksRepository: BooksRepositoryImpl
 ) : ViewModel() {
-    var loadingStatus = LoadingStatus.LOADING
+    var loadingStatus by mutableStateOf(LoadingStatus.LOADING)
         private set
 
-    var books: List<ShortBookModel> = emptyList()
+    var books by mutableStateOf<List<ShortBookModel>>(emptyList())
         private set
 
     init {
@@ -30,9 +31,11 @@ class HomeScreenViewModel @Inject constructor(
     }
 
     fun loadData() {
-        CoroutineScope(Dispatchers.IO).launch {
+        viewModelScope.launch {
             loadingStatus = LoadingStatus.LOADING
-            books = booksRepository.getBooks()
+            books = withContext(Dispatchers.IO) {
+                booksRepository.getBooks()
+            }
             loadingStatus = LoadingStatus.LOADED
         }
     }
