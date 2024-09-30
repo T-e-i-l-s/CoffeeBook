@@ -43,6 +43,7 @@ import com.mustafin.ebooks.core.ui.components.CustomProgressIndicator
 import com.mustafin.ebooks.mainFlow.ui.screens.homeScreen.views.BookInfoView
 import com.mustafin.ebooks.mainFlow.ui.screens.homeScreen.views.addBookSheet.AddBookBottomSheetView
 import com.mustafin.ebooks.mainFlow.ui.screens.homeScreen.views.addBookSheet.AddBookViewModel
+import com.mustafin.ebooks.mainFlow.ui.screens.homeScreen.views.banner.BannerView
 
 // Главный экран приложения
 @OptIn(ExperimentalMaterial3Api::class)
@@ -130,6 +131,10 @@ fun HomeScreenView(openReader: (bookId: Int) -> Unit) {
                     .fillMaxWidth()
                     .padding(horizontal = 12.dp)
             ) { viewModel.openAddBookSheet() }
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            BannerView(Modifier.padding(horizontal = 12.dp))
         }
 
         item {
