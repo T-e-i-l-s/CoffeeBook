@@ -6,6 +6,7 @@
 
     <!--  Главный экран  -->
     <string name="my_books">Мои книги</string>
+    <string name="loading_books">Загружаем книги</string>
 
     <!--  View добавления книги  -->
     <string name="select_file">Выбрать .pdf файл</string>

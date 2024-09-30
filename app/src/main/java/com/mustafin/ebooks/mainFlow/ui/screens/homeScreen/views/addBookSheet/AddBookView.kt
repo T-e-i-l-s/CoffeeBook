@@ -17,6 +17,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -29,10 +30,12 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.mustafin.ebooks.R
 import com.mustafin.ebooks.core.domain.APP_DEFAULT_FONT
 import com.mustafin.ebooks.core.ui.components.CustomButton
+import com.mustafin.ebooks.core.ui.components.CustomProgressIndicator
+import com.mustafin.ebooks.mainFlow.domain.models.AddBookViewStatus
 
 // View для импорта книг
 @Composable
-fun AddBookBottomSheetView() {
+fun AddBookBottomSheetView(reloadBooksList: () -> Unit) {
     val viewModel: AddBookViewModel = hiltViewModel()
 
     // Лаунчер для выбора файла
@@ -43,6 +46,10 @@ fun AddBookBottomSheetView() {
             // Обработка выбранного файла
             viewModel.onFileSelected(uri)
         }
+    }
+
+    LaunchedEffect(viewModel.viewStatus == AddBookViewStatus.COMPLETED) {
+        reloadBooksList() // TODO: Поменять логику, чтобы список не обновлялся при первой загрузке
     }
 
     Column(
@@ -86,11 +93,9 @@ fun AddBookBottomSheetView() {
             }
 
             AddBookViewStatus.PROCESSING -> {
-                CircularProgressIndicator(
-                    modifier = Modifier.size(21.dp),
+                CustomProgressIndicator(
+                    size = 21.dp,
                     color = colorResource(id = R.color.text),
-                    trackColor = Color.Transparent,
-                    strokeWidth = 2.dp
                 )
 
                 Spacer(modifier = Modifier.height(8.dp))

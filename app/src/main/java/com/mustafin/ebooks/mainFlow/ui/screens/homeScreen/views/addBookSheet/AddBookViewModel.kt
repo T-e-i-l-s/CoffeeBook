@@ -11,6 +11,8 @@ import com.mustafin.ebooks.core.domain.extensions.getFileName
 import com.mustafin.ebooks.core.domain.extensions.toByteArray
 import com.mustafin.ebooks.core.data.repositories.booksRepository.BooksRepositoryImpl
 import com.mustafin.ebooks.mainFlow.domain.PdfReader
+import com.mustafin.ebooks.mainFlow.domain.models.AddBookViewStatus
+import dagger.assisted.Assisted
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -57,7 +59,6 @@ class AddBookViewModel @Inject constructor(
         private set
 
     private var selectedFileUri: Uri? by mutableStateOf(null)
-        private set
 
     var isSelected: Boolean by mutableStateOf(false)
         private set
