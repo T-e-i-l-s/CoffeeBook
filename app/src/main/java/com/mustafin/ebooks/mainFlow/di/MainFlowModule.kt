@@ -1,9 +1,6 @@
 package com.mustafin.ebooks.mainFlow.di
 
 import android.content.Context
-import androidx.room.Room
-import com.mustafin.ebooks.core.data.source.local.booksDatabase.BooksDatabase
-import com.mustafin.ebooks.core.data.repositories.booksRepository.BooksRepositoryImpl
 import com.mustafin.ebooks.mainFlow.domain.PdfReader
 import dagger.Module
 import dagger.Provides

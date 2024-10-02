@@ -6,13 +6,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.AndroidViewModel
+import com.mustafin.ebooks.core.data.repositories.booksRepository.BooksRepositoryImpl
 import com.mustafin.ebooks.core.data.source.local.booksDatabase.BookEntity
 import com.mustafin.ebooks.core.domain.extensions.getFileName
 import com.mustafin.ebooks.core.domain.extensions.toByteArray
-import com.mustafin.ebooks.core.data.repositories.booksRepository.BooksRepositoryImpl
 import com.mustafin.ebooks.mainFlow.domain.PdfReader
 import com.mustafin.ebooks.mainFlow.domain.models.AddBookViewStatus
-import dagger.assisted.Assisted
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

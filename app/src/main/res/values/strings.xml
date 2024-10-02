@@ -3,10 +3,14 @@
 
     <!--  Общее  -->
     <string name="add_book">Добавить книгу</string>
+    <string name="add">Добавить</string>
 
     <!--  Главный экран  -->
     <string name="my_books">Мои книги</string>
+    <string name="all_books">все книги</string>
     <string name="loading_books">Загружаем книги</string>
+    <string name="empty_books_list">Книг пока нет</string>
+    <string name="read">Читать</string>
 
     <!--  View добавления книги  -->
     <string name="select_file">Выбрать .pdf файл</string>

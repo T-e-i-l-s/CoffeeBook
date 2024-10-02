@@ -1,4 +1,4 @@
-package com.mustafin.ebooks.mainFlow.ui.screens.homeScreen.views
+package com.mustafin.ebooks.mainFlow.ui.screens.homeScreen.views.booksView
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -53,11 +53,7 @@ fun BookInfoView(book: ShortBookModel, openReader: (bookId: Int) -> Unit) {
             contentScale = ContentScale.Crop
         )
 
-        Spacer(
-            modifier = Modifier
-                .width(12.dp)
-                .fillMaxHeight()
-        )
+        Spacer(modifier = Modifier.width(12.dp))
 
         Column(
             modifier = Modifier

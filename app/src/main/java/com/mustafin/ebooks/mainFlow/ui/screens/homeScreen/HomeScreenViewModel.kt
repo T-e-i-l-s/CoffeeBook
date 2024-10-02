@@ -5,12 +5,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mustafin.ebooks.core.domain.enums.LoadingStatus
 import com.mustafin.ebooks.core.data.repositories.booksRepository.BooksRepositoryImpl
+import com.mustafin.ebooks.core.domain.enums.LoadingStatus
 import com.mustafin.ebooks.mainFlow.domain.models.ShortBookModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -36,7 +35,6 @@ class HomeScreenViewModel @Inject constructor(
             books = withContext(Dispatchers.IO) {
                 booksRepository.getBooks()
             }
-            delay(3000)
             loadingStatus = LoadingStatus.LOADED
         }
     }

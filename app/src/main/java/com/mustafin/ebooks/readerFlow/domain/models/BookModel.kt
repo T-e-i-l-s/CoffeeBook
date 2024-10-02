@@ -4,5 +4,5 @@ package com.mustafin.ebooks.readerFlow.domain.models
 data class BookModel(
     val id: Int,
     val name: String,
-    val content: String
+    val content: List<String>
 )

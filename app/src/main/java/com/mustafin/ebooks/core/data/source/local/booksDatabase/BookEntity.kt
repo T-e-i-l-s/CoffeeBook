@@ -25,7 +25,7 @@ data class BookEntity(
         return BookModel(
             id,
             name,
-            content,
+            content.split(' '), // TODO: Убрать костыль
         )
     }
 
