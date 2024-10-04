@@ -10,6 +10,7 @@ import com.mustafin.ebooks.core.data.repositories.booksRepository.BooksRepositor
 import com.mustafin.ebooks.core.data.source.local.booksDatabase.BookEntity
 import com.mustafin.ebooks.core.domain.extensions.getFileName
 import com.mustafin.ebooks.core.domain.extensions.toByteArray
+import com.mustafin.ebooks.mainFlow.domain.ContentProcessor
 import com.mustafin.ebooks.mainFlow.domain.PdfReader
 import com.mustafin.ebooks.mainFlow.domain.models.AddBookViewStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -43,7 +44,7 @@ class AddBookViewModel @Inject constructor(
                     BookEntity(
                         name = selectedFileName!!,
                         preview = previewBitmap.toByteArray(),
-                        content = bookContent
+                        content = ContentProcessor.separateContent(bookContent)
                     )
                 )
 
