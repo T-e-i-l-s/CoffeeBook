@@ -3,7 +3,9 @@ package com.mustafin.ebooks.readerFlow.ui.screens.readerScreen
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.ContextualFlowRow
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -43,12 +45,20 @@ fun ReaderScreenView(bookId: Int) {
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             itemCount = 1000
         ) { index ->
-            Text(
-                text = viewModel.book.content[index],
-                color = colorResource(id = R.color.text),
-                fontSize = 18.sp,
-                fontFamily = APP_DEFAULT_FONT
-            )
+            if (viewModel.book.content[index] == "\n") {
+                Spacer(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(20.dp)
+                )
+            } else {
+                Text(
+                    text = viewModel.book.content[index],
+                    color = colorResource(id = R.color.text),
+                    fontSize = 18.sp,
+                    fontFamily = APP_DEFAULT_FONT
+                )
+            }
         }
     }
 }
