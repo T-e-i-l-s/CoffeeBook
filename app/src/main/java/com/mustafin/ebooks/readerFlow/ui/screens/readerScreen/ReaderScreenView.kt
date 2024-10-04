@@ -1,30 +1,16 @@
 package com.mustafin.ebooks.readerFlow.ui.screens.readerScreen
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.ContextualFlowRow
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawingPadding
-import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.text.ClickableText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.withStyle
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.mustafin.ebooks.R
-import com.mustafin.ebooks.core.domain.APP_DEFAULT_FONT
 import com.mustafin.ebooks.core.domain.enums.LoadingStatus
 
-@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun ReaderScreenView(bookId: Int) {
     val viewModel: ReaderScreenViewModel = hiltViewModel()
@@ -34,29 +20,31 @@ fun ReaderScreenView(bookId: Int) {
     }
 
     if (viewModel.loadingStatus == LoadingStatus.LOADED) {
-        ContextualFlowRow(
-            modifier = Modifier
-                .safeDrawingPadding()
-                .fillMaxWidth(1f)
-                .padding(16.dp)
-                .wrapContentHeight(align = Alignment.Top)
-                .verticalScroll(rememberScrollState()),
-            verticalArrangement = Arrangement.spacedBy(4.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            itemCount = 1000
-        ) { index ->
-            if (viewModel.book.content[index] == "\n") {
-                Spacer(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(20.dp)
-                )
-            } else {
-                Text(
-                    text = viewModel.book.content[index],
-                    color = colorResource(id = R.color.text),
-                    fontSize = 18.sp,
-                    fontFamily = APP_DEFAULT_FONT
+        // Создаём аннотированную строку
+        val annotatedString = buildAnnotatedString {
+            viewModel.book.content.forEach { word ->
+                pushStringAnnotation(tag = "WORD", annotation = word)
+                append("$word ")
+                pop()
+            }
+        }
+
+        LazyColumn {
+            item {
+                ClickableText(
+                    text = annotatedString,
+                    onClick = { offset ->
+                        // Получаем аннотацию, связанную с нажатым словом
+                        annotatedString.getStringAnnotations(
+                            tag = "WORD",
+                            start = offset,
+                            end = offset
+                        )
+                            .firstOrNull()?.let { annotation ->
+                                println("Нажато слово: ${annotation.item}")
+                            }
+                    },
+                    modifier = Modifier.statusBarsPadding()
                 )
             }
         }

@@ -34,17 +34,21 @@ class AddBookViewModel @Inject constructor(
             viewStatus = AddBookViewStatus.PROCESSING
 
             try {
+                println(selectedFileName)
+
                 // Текст книги
                 val bookContent = pdfReader.extractTextFromPdf(selectedFileUri!!)
                 // Картинка первой страницы
                 val previewBitmap = pdfReader.extractPreviewFromPdf(selectedFileUri!!)
 
+                println(bookContent?.length)
+
                 // Добавляем книгу в Room
                 booksRepository.addBook(
                     BookEntity(
                         name = selectedFileName!!,
-                        preview = previewBitmap.toByteArray(),
-                        content = ContentProcessor.separateContent(bookContent)
+                        preview = previewBitmap!!.toByteArray(),
+                        content = ContentProcessor.separateContent(bookContent!!)
                     )
                 )
 
