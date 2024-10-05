@@ -10,7 +10,9 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.mustafin.ebooks.core.domain.enums.LoadingStatus
+import com.mustafin.ebooks.readerFlow.ui.screens.readerScreen.views.bookContentView.BookContentView
 
+// View экрана читалки
 @Composable
 fun ReaderScreenView(bookId: Int) {
     val viewModel: ReaderScreenViewModel = hiltViewModel()
@@ -20,33 +22,6 @@ fun ReaderScreenView(bookId: Int) {
     }
 
     if (viewModel.loadingStatus == LoadingStatus.LOADED) {
-        // Создаём аннотированную строку
-        val annotatedString = buildAnnotatedString {
-            viewModel.book.content.forEach { word ->
-                pushStringAnnotation(tag = "WORD", annotation = word)
-                append("$word ")
-                pop()
-            }
-        }
-
-        LazyColumn {
-            item {
-                ClickableText(
-                    text = annotatedString,
-                    onClick = { offset ->
-                        // Получаем аннотацию, связанную с нажатым словом
-                        annotatedString.getStringAnnotations(
-                            tag = "WORD",
-                            start = offset,
-                            end = offset
-                        )
-                            .firstOrNull()?.let { annotation ->
-                                println("Нажато слово: ${annotation.item}")
-                            }
-                    },
-                    modifier = Modifier.statusBarsPadding()
-                )
-            }
-        }
+        BookContentView()
     }
 }
