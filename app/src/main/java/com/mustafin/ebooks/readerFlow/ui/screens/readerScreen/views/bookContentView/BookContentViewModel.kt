@@ -8,10 +8,7 @@ import androidx.lifecycle.ViewModel
 import java.util.Stack
 
 // ViewModel блока с текстом книги
-class BookContentViewModel : ViewModel() {
-    // TODO: Убрать заглушку
-    val content = List(5000) { i -> "Элемент с индексом $i" }
-
+class BookContentViewModel(private val bookContent: List<String>) : ViewModel() {
     // Индексы слов в массиве, которые сейчас открыты
     private var firstWordIndex by mutableIntStateOf(0)
     private var lastWordIndex by mutableStateOf<Int?>(null)
@@ -33,9 +30,9 @@ class BookContentViewModel : ViewModel() {
 
     // Функция загрузки контента страницы
     private fun loadContent() {
-        currentPageContent = content.subList(
+        currentPageContent = bookContent.subList(
             firstWordIndex,
-            content.size
+            bookContent.size
         )
         println(currentPageContent)
     }
@@ -45,7 +42,7 @@ class BookContentViewModel : ViewModel() {
 
     // Перелистывание на следующую страницу
     fun openNextPage() {
-        if (lastWordIndex != null && firstWordIndex + lastWordIndex!! < content.size - 1) {
+        if (lastWordIndex != null && firstWordIndex + lastWordIndex!! < bookContent.size - 1) {
             // Сохраняем старое значение firstWordIndex в стек
             firstWordIndexesStack.push(firstWordIndex)
             // Устанавливаем новые индексы

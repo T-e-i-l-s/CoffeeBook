@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -48,6 +49,7 @@ fun BookInfoView(book: ShortBookModel, openReader: (bookId: Int) -> Unit) {
             contentDescription = null,
             modifier = Modifier
                 .width(150.dp)
+                .height(250.dp)
                 .clip(RoundedCornerShape(4.dp))
                 .background(colorResource(id = R.color.gray)),
             contentScale = ContentScale.Crop
@@ -56,9 +58,6 @@ fun BookInfoView(book: ShortBookModel, openReader: (bookId: Int) -> Unit) {
         Spacer(modifier = Modifier.width(12.dp))
 
         Column(
-            modifier = Modifier
-                .weight(1f)
-                .fillMaxHeight(),
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.Start
         ) {
@@ -67,7 +66,7 @@ fun BookInfoView(book: ShortBookModel, openReader: (bookId: Int) -> Unit) {
                 color = colorResource(id = R.color.text),
                 fontWeight = FontWeight.Medium,
                 fontSize = 21.sp,
-                fontFamily = APP_DEFAULT_FONT,
+                fontFamily = APP_DEFAULT_FONT
             )
         }
     }
