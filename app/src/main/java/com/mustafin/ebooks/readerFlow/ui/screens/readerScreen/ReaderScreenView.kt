@@ -47,10 +47,6 @@ fun ReaderScreenView(bookId: Int) {
             BookContentView(viewModel.book)
             ControlBarView()
         } else if (viewModel.loadingStatus == LoadingStatus.LOADING) {
-            CustomProgressIndicator(color = colorResource(id = R.color.text), size = 24.dp)
-
-            Spacer(modifier = Modifier.height(8.dp))
-
             Text(
                 text = stringResource(id = R.string.book_processing),
                 color = colorResource(id = R.color.text),
