@@ -1,8 +1,10 @@
 package com.mustafin.ebooks.readerFlow.ui.screens.readerScreen.views.bookContentView
 
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.draggable
 import androidx.compose.foundation.gestures.rememberDraggableState
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.ContextualFlowRow
 import androidx.compose.foundation.layout.ContextualFlowRowOverflow
@@ -13,6 +15,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -37,12 +41,18 @@ fun ContentFlowRow(
     setLastWordIndex: (Int) -> Unit,
 ) {
     val isLastWordSelected = remember { mutableStateOf(false) }
+    val parentHeight = remember { mutableStateOf<Int?>(null) }
 
     ContextualFlowRow(
         modifier = Modifier
             .fillMaxSize()
+            .verticalScroll(rememberScrollState())
             .padding(16.dp)
-            .wrapContentHeight(align = Alignment.Top),
+            .wrapContentHeight(align = Alignment.Top)
+            .onGloballyPositioned {
+                val parentCoordinates = it.parentLayoutCoordinates
+                parentHeight.value = parentCoordinates?.size?.height
+            },
         overflow = ContextualFlowRowOverflow.Clip,
         verticalArrangement = Arrangement.spacedBy(4.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -65,12 +75,11 @@ fun ContentFlowRow(
                     fontSize = 18.sp,
                     fontFamily = APP_DEFAULT_FONT,
                     modifier = Modifier.onGloballyPositioned {
-                        val parentCoordinates = it.parentLayoutCoordinates
-                        val parentHeight = parentCoordinates?.size?.height
-                        println("Check ${it.positionInParent().y} ${parentHeight ?: Int.MAX_VALUE}")
-
-                        if (it.positionInParent().y > (parentHeight ?: Int.MAX_VALUE)) {
-                            println("Cant show!!!!")
+                        if (
+                            // FIXME: Сдлеать чтобы расчет высоы шел красиво
+                            it.positionInParent().y + 200 >
+                            (parentHeight.value ?: Int.MAX_VALUE)
+                        ) {
                             if (!isLastWordSelected.value) {
                                 setLastWordIndex(index)
                                 isLastWordSelected.value = true

@@ -11,7 +11,7 @@ import java.util.Stack
 class BookContentViewModel(private val bookContent: List<String>) : ViewModel() {
     // Индексы слов в массиве, которые сейчас открыты
     private var firstWordIndex by mutableIntStateOf(0)
-    private var lastWordIndex by mutableStateOf<Int?>(100)
+    private var lastWordIndex by mutableStateOf<Int?>(10)
 
     // Сеттер для индекса последнего слова на странице в массиве
     fun setLastWordIndex(index: Int) {
@@ -38,7 +38,6 @@ class BookContentViewModel(private val bookContent: List<String>) : ViewModel() 
                 bookContent.size
             )
         )
-        println("Size: " + pages.size)
     }
 
     // Перелистывание на следующую страницу
@@ -46,7 +45,7 @@ class BookContentViewModel(private val bookContent: List<String>) : ViewModel() 
         if (firstWordIndex + lastWordIndex!! < bookContent.size - 1) {
             // Устанавливаем новые индексы
             firstWordIndex += lastWordIndex!! + 1
-            lastWordIndex = 100
+            lastWordIndex = 10
             // Обновляем контент на странице
             loadContent()
             generateNextPage()
