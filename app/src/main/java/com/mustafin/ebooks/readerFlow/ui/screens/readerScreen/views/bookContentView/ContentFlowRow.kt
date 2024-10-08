@@ -41,7 +41,7 @@ fun ContentFlowRow(
     ContextualFlowRow(
         modifier = Modifier
             .fillMaxSize()
-            .verticalScroll(rememberScrollState())
+            .verticalScroll(rememberScrollState()) // FIXME: При удалении некоторые страницы не свайпаются
             .padding(16.dp)
             .wrapContentHeight(align = Alignment.Top)
             .onGloballyPositioned {

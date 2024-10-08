@@ -19,7 +19,7 @@ fun BookContentView(book: BookModel) {
         state = rememberPagerState { viewModel.pages.size }
     ) {
         ContentFlowRow(currentPageContent = viewModel.pages[it]) { index ->
-            if (it == viewModel.pages.size-1) {
+            if (it == viewModel.pages.size - 1) {
                 viewModel.setLastWordIndex(index)
             }
         }

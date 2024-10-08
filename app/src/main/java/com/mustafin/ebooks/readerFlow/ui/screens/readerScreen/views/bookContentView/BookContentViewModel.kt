@@ -48,4 +48,16 @@ class BookContentViewModel(private val bookContent: List<String>) : ViewModel() 
             loadContent()
         }
     }
+
+    fun openPageWithWord(wordIndex: Int) {
+        // Сбрасываем отображение текста
+        firstWordIndex = 0
+        lastWordIndex = null
+        pages.clear()
+        loadContent()
+        // Рендерим страницы до нужной нам
+        while (wordIndex < firstWordIndex) {
+
+        }
+    }
 }
