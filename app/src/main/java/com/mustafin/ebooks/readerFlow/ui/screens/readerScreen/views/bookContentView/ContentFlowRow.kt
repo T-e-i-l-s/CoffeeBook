@@ -1,5 +1,6 @@
 package com.mustafin.ebooks.readerFlow.ui.screens.readerScreen.views.bookContentView
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.ContextualFlowRow
 import androidx.compose.foundation.layout.ContextualFlowRowOverflow
@@ -20,6 +21,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.LayoutCoordinates
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInParent
 import androidx.compose.ui.res.colorResource
@@ -55,12 +58,27 @@ fun ContentFlowRow(
     ) { index ->
         var isShown by remember { mutableStateOf(true) }
 
+        val onGlobalyPoistoned: (LayoutCoordinates) -> Unit = { it ->
+            if (
+            // FIXME: Сдлеать чтобы расчет высоты шел красиво
+                it.positionInParent().y + 200 >
+                (parentHeight.value ?: Int.MAX_VALUE)
+            ) {
+                if (!isLastWordSelected.value) {
+                    setLastWordIndex(index)
+                    isLastWordSelected.value = true
+                }
+                isShown = false
+            }
+        }
+
         if (isShown && index < currentPageContent.size) {
             if (currentPageContent[index] == "\n") {
                 Spacer(
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(5.dp)
+                        .onGloballyPositioned { onGlobalyPoistoned(it) }
                 )
             } else {
                 // FIXME: Исправить порядок рендера слов, иногда они обрезаются
@@ -69,19 +87,7 @@ fun ContentFlowRow(
                     color = colorResource(id = R.color.text),
                     fontSize = 18.sp,
                     fontFamily = APP_DEFAULT_FONT,
-                    modifier = Modifier.onGloballyPositioned {
-                        if (
-                            // FIXME: Сдлеать чтобы расчет высоы шел красиво
-                            it.positionInParent().y + 200 >
-                            (parentHeight.value ?: Int.MAX_VALUE)
-                        ) {
-                            if (!isLastWordSelected.value) {
-                                setLastWordIndex(index)
-                                isLastWordSelected.value = true
-                            }
-                            isShown = false
-                        }
-                    }
+                    modifier = Modifier.onGloballyPositioned { onGlobalyPoistoned(it) }
                 )
             }
         }
