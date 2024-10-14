@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModel
 // ViewModel блока с текстом книги
 class BookContentViewModel(private val bookContent: List<String>) : ViewModel() {
     // Индексы слов в массиве, которые сейчас открыты
-    var firstWordIndex by mutableIntStateOf(0)
+    private var firstWordIndex by mutableIntStateOf(0)
     private var lastWordIndex by mutableStateOf<Int?>(null)
 
     // Сеттер для индекса последнего слова на странице в массиве
@@ -33,13 +33,14 @@ class BookContentViewModel(private val bookContent: List<String>) : ViewModel() 
         pages.add(
             bookContent.subList(
                 firstWordIndex,
-                bookContent.size
+                (firstWordIndex + 1000).coerceAtMost(bookContent.size)
             )
         )
     }
 
     // Перелистывание на следующую страницу
     private fun generateNextPage() {
+        println(firstWordIndex)
         if (firstWordIndex + lastWordIndex!! < bookContent.size - 1) {
             // Устанавливаем новые индексы
             firstWordIndex += lastWordIndex!!
@@ -47,40 +48,5 @@ class BookContentViewModel(private val bookContent: List<String>) : ViewModel() 
             // Обновляем контент на странице
             loadContent()
         }
-    }
-
-    var isRestoring by mutableStateOf(false)
-
-    // Индекс открытой страницы(нужен при повторной загрузке
-    var currentPageIndex by mutableIntStateOf(0)
-
-    var restoreTo by mutableIntStateOf(0)
-
-    fun openPageWithWord(wordIndex: Int) {
-        if (wordIndex <= firstWordIndex) {
-            return
-        }
-        println("Restore1")
-        restoreTo = wordIndex
-        isRestoring = true
-        // Сбрасываем отображение текста
-        currentPageIndex = 0
-        firstWordIndex = 0
-        lastWordIndex = null
-        pages.clear()
-        // Рендерим страницы до нужной нам
-        loadContent()
-    }
-
-    // Сеттер для индекса последнего слова на странице в массиве
-    fun restoreLastWordIndex(index: Int) {
-        println("Restore2")
-        lastWordIndex = index
-        if (index > restoreTo) {
-            currentPageIndex++
-        } else {
-            isRestoring = false
-        }
-        generateNextPage()
     }
 }
