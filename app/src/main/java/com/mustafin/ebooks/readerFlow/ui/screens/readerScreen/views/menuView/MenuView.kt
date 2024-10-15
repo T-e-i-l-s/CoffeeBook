@@ -22,6 +22,7 @@ import com.mustafin.ebooks.core.ui.components.SmallButton
 import com.mustafin.ebooks.readerFlow.domain.models.BookModel
 import java.util.Locale
 
+// View меню с информацией о книге и найтройками ридера
 @Composable
 fun MenuView(book: BookModel, progress: Float) {
     Column(
@@ -54,7 +55,7 @@ fun MenuView(book: BookModel, progress: Float) {
 
         Text(
             text = "${stringResource(id = R.string.have_read)} " +
-                    "${String.format(Locale.US, "%.2f", progress)}%",
+                    "${String.format(Locale.US, "%.1f", progress * 100)}%",
             color = colorResource(id = R.color.text),
             fontSize = 15.sp,
             fontFamily = APP_DEFAULT_FONT,

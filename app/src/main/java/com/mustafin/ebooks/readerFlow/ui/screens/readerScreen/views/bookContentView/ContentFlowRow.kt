@@ -36,13 +36,15 @@ fun ContentFlowRow(
     currentPageContent: List<String>,
     setLastWordIndex: (Int) -> Unit,
 ) {
+    // Было ли отображено последнее слово
     val isLastWordSelected = remember { mutableStateOf(false) }
+    // Высота конейнера(ContextualFlowRow)
     val parentHeight = remember { mutableStateOf<Int?>(null) }
 
     ContextualFlowRow(
         modifier = Modifier
             .fillMaxSize()
-            .verticalScroll(rememberScrollState()) // FIXME: При удалении некоторые страницы не свайпаются
+            .verticalScroll(rememberScrollState())
             .padding(16.dp)
             .wrapContentHeight(align = Alignment.Top)
             .onGloballyPositioned {
