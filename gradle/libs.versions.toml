@@ -1,5 +1,6 @@
 [versions]
 agp = "8.5.1"
+constraintlayoutCompose = "1.0.1"
 hiltAndroidVersion = "2.49"
 hiltNavigationCompose = "1.2.0"
 itextg = "5.5.10"
@@ -18,6 +19,7 @@ pdfiumAndroid = "1.0.1"
 roomKtx = "2.6.1"
 
 [libraries]
+androidx-constraintlayout-compose = { module = "androidx.constraintlayout:constraintlayout-compose", version.ref = "constraintlayoutCompose" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
 androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleRuntimeKtx" }

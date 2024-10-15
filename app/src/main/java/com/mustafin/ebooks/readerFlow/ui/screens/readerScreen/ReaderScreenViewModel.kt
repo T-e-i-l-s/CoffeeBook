@@ -35,7 +35,7 @@ class ReaderScreenViewModel @Inject constructor(
         viewModelScope.launch {
             loadingStatus = LoadingStatus.LOADING
             withContext(Dispatchers.IO) {
-                book = booksRepositoryImpl.getBookById(2) // TODO: Убрать заглушку
+                book = booksRepositoryImpl.getBookById(1) // TODO: Убрать заглушку
                 readerSettings = readerSettingsRepositoryImpl.getReaderSettings()
             }
             loadingStatus = LoadingStatus.LOADED

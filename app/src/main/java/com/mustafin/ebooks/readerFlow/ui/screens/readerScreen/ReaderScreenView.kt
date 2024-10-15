@@ -4,7 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -33,15 +33,14 @@ fun ReaderScreenView(bookId: Int) {
     Column(
         modifier = Modifier
             .statusBarsPadding()
-            .navigationBarsPadding()
             .fillMaxSize()
             .background(colorResource(id = R.color.background)),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         if (viewModel.loadingStatus == LoadingStatus.LOADED) {
-            BookContentView(viewModel.book)
-            ControlBarView()
+            BookContentView(viewModel.book, Modifier.weight(1f).fillMaxWidth())
+            ControlBarView("", 0.0, {})
         } else if (viewModel.loadingStatus == LoadingStatus.LOADING) {
             Text(
                 text = stringResource(id = R.string.book_processing),

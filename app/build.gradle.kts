@@ -86,6 +86,7 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     debugImplementation(libs.androidx.ui.tooling)
+    implementation(libs.androidx.constraintlayout.compose)
 
     // Serialization
     implementation(libs.kotlinx.serialization.json)
