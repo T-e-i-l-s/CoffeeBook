@@ -10,8 +10,8 @@ import androidx.lifecycle.ViewModel
 // ViewModel блока с текстом книги
 class BookContentViewModel(private val bookContent: List<String>) : ViewModel() {
     // Индексы слов в массиве, которые сейчас открыты
-    private var firstWordIndex by mutableIntStateOf(0)
-    private var lastWordIndex by mutableStateOf<Int?>(null)
+    var firstWordIndex by mutableIntStateOf(0)
+    var lastWordIndex by mutableStateOf<Int?>(null)
 
     // Сеттер для индекса последнего слова на странице в массиве
     fun setLastWordIndex(index: Int) {
@@ -21,6 +21,8 @@ class BookContentViewModel(private val bookContent: List<String>) : ViewModel() 
 
     // Контент каждой из страниц
     var pages = mutableStateListOf<List<String>>()
+        private set
+    var firstWordsOfAllPages = mutableStateListOf<Int>()
         private set
 
     init {
@@ -35,6 +37,9 @@ class BookContentViewModel(private val bookContent: List<String>) : ViewModel() 
                 firstWordIndex,
                 (firstWordIndex + 1000).coerceAtMost(bookContent.size)
             )
+        )
+        firstWordsOfAllPages.add(
+            firstWordIndex
         )
     }
 

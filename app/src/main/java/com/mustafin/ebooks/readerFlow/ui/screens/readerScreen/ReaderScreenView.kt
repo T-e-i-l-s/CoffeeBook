@@ -3,12 +3,19 @@ package com.mustafin.ebooks.readerFlow.ui.screens.readerScreen
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
@@ -19,9 +26,11 @@ import com.mustafin.ebooks.R
 import com.mustafin.ebooks.core.domain.APP_DEFAULT_FONT
 import com.mustafin.ebooks.core.domain.enums.LoadingStatus
 import com.mustafin.ebooks.readerFlow.ui.screens.readerScreen.views.bookContentView.BookContentView
-import com.mustafin.ebooks.readerFlow.ui.screens.readerScreen.views.controllBar.ControlBarView
+import com.mustafin.ebooks.readerFlow.ui.screens.readerScreen.views.controllBarView.ControlBarView
+import com.mustafin.ebooks.readerFlow.ui.screens.readerScreen.views.menuView.MenuView
 
 // View экрана читалки
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ReaderScreenView(bookId: Int) {
     val viewModel: ReaderScreenViewModel = hiltViewModel()
@@ -39,8 +48,30 @@ fun ReaderScreenView(bookId: Int) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         if (viewModel.loadingStatus == LoadingStatus.LOADED) {
-            BookContentView(viewModel.book, Modifier.weight(1f).fillMaxWidth())
-            ControlBarView("", 0.0, {})
+            var readingProgress by remember { mutableFloatStateOf(0f) }
+
+            BookContentView(
+                viewModel.book,
+                Modifier
+                    .weight(1f)
+                    .fillMaxWidth()
+            ) {
+                readingProgress = it
+            }
+
+            ControlBarView(viewModel.book.name, readingProgress) { viewModel.showMenu = true }
+
+            if (viewModel.showMenu) {
+                ModalBottomSheet(
+                    onDismissRequest = {
+                        viewModel.showMenu = false
+                    },
+                    containerColor = colorResource(id = R.color.background),
+                    windowInsets = WindowInsets(0, 0, 0, 0)
+                ) {
+                    MenuView(book = viewModel.book, progress = readingProgress)
+                }
+            }
         } else if (viewModel.loadingStatus == LoadingStatus.LOADING) {
             Text(
                 text = stringResource(id = R.string.book_processing),

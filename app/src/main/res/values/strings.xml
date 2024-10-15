@@ -17,4 +17,9 @@
     <string name="book_processing">Готовим книгу</string>
     <string name="book_processing_success">Книга успешно добалена</string>
     <string name="book_processing_failed">Произошла ошибка</string>
+
+    <!--  Читалка  -->
+    <string name="menu">Меню</string>
+    <string name="have_read">Прочитано</string>
+    <string name="close_book">Закрыть книгу</string>
 </resources>

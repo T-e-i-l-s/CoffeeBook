@@ -28,7 +28,10 @@ class ReaderScreenViewModel @Inject constructor(
     lateinit var book: BookModel
 
     // Настройки читалки
-    var readerSettings by mutableStateOf<ReaderSettingsModel?>(null)
+    private var readerSettings by mutableStateOf<ReaderSettingsModel?>(null)
+
+    // Открыто ли меню
+    var showMenu by mutableStateOf(false)
 
     // Функция полной загрузки данных
     fun loadData() {
