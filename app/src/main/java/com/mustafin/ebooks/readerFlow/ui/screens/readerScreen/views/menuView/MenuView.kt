@@ -1,11 +1,13 @@
 package com.mustafin.ebooks.readerFlow.ui.screens.readerScreen.views.menuView
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -64,12 +66,20 @@ fun MenuView(book: BookModel, progress: Float) {
 
         Spacer(modifier = Modifier.height(12.dp))
 
-        SmallButton(
-            label = stringResource(id = R.string.close_book),
-            background = colorResource(id = R.color.additional),
-            textColor = colorResource(id = R.color.background)
-        ) {}
+        Row {
+            SmallButton(
+                label = stringResource(id = R.string.show_summarization),
+                background = colorResource(id = R.color.secondary_background),
+                textColor = colorResource(id = R.color.text)
+            ) {}
 
-        Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.width(12.dp))
+
+            SmallButton(
+                label = stringResource(id = R.string.close_book),
+                background = colorResource(id = R.color.additional),
+                textColor = colorResource(id = R.color.background)
+            ) {}
+        }
     }
 }

@@ -28,6 +28,7 @@ import com.mustafin.ebooks.core.domain.enums.LoadingStatus
 import com.mustafin.ebooks.readerFlow.ui.screens.readerScreen.views.bookContentView.BookContentView
 import com.mustafin.ebooks.readerFlow.ui.screens.readerScreen.views.controllBarView.ControlBarView
 import com.mustafin.ebooks.readerFlow.ui.screens.readerScreen.views.menuView.MenuView
+import com.mustafin.ebooks.readerFlow.ui.screens.readerScreen.views.wordMeaningView.WordMeaningView
 
 // View экрана читалки
 @OptIn(ExperimentalMaterial3Api::class)
@@ -54,10 +55,10 @@ fun ReaderScreenView(bookId: Int) {
                 viewModel.book,
                 Modifier
                     .weight(1f)
-                    .fillMaxWidth()
-            ) {
-                readingProgress = it
-            }
+                    .fillMaxWidth(),
+                setReadingProgress = { readingProgress = it },
+                onSelectWord = { viewModel.showWordMeaning(it) }
+            )
 
             ControlBarView(viewModel.book.name, readingProgress) { viewModel.showMenu = true }
 
@@ -70,6 +71,18 @@ fun ReaderScreenView(bookId: Int) {
                     windowInsets = WindowInsets(0, 0, 0, 0)
                 ) {
                     MenuView(book = viewModel.book, progress = readingProgress)
+                }
+            }
+
+            if (viewModel.showWordMeaning) {
+                ModalBottomSheet(
+                    onDismissRequest = {
+                        viewModel.resetSelection()
+                    },
+                    containerColor = colorResource(id = R.color.background),
+                    windowInsets = WindowInsets(0, 0, 0, 0)
+                ) {
+                    WordMeaningView(viewModel.selectedWord!!)
                 }
             }
         } else if (viewModel.loadingStatus == LoadingStatus.LOADING) {

@@ -1,5 +1,7 @@
 package com.mustafin.ebooks.readerFlow.ui.screens.readerScreen.views.bookContentView
 
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.ContextualFlowRow
 import androidx.compose.foundation.layout.ContextualFlowRowOverflow
@@ -35,6 +37,7 @@ import com.mustafin.ebooks.core.domain.APP_DEFAULT_FONT
 fun ContentFlowRow(
     currentPageContent: List<String>,
     setLastWordIndex: (Int) -> Unit,
+    onSelectWord: (String) -> Unit,
 ) {
     // Было ли отображено последнее слово
     val isLastWordSelected = remember { mutableStateOf(false) }
@@ -87,7 +90,12 @@ fun ContentFlowRow(
                     color = colorResource(id = R.color.text),
                     fontSize = 18.sp,
                     fontFamily = APP_DEFAULT_FONT,
-                    modifier = Modifier.onGloballyPositioned { onGlobalyPoistoned(it) }
+                    modifier = Modifier
+                        .onGloballyPositioned { onGlobalyPoistoned(it) }
+                        .clickable(
+                            interactionSource = remember { MutableInteractionSource() },
+                            indication = null
+                        ) { onSelectWord(currentPageContent[index]) }
                 )
             }
         }

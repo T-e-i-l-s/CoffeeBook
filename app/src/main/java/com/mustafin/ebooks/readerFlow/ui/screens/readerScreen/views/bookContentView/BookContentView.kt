@@ -13,7 +13,8 @@ import com.mustafin.ebooks.readerFlow.domain.models.BookModel
 fun BookContentView(
     book: BookModel,
     modifier: Modifier,
-    setReadingProgress: (Float) -> Unit
+    setReadingProgress: (Float) -> Unit,
+    onSelectWord: (String) -> Unit
 ) {
     val viewModel: BookContentViewModel =
         viewModel(factory = BookContentViewModelFactory(book.content))
@@ -30,10 +31,14 @@ fun BookContentView(
         modifier = modifier,
         state = pagerState
     ) {
-        ContentFlowRow(currentPageContent = viewModel.pages[it]) { index ->
-            if (it == viewModel.pages.size - 1) {
-                viewModel.setLastWordIndex(index)
-            }
-        }
+        ContentFlowRow(
+            currentPageContent = viewModel.pages[it],
+            setLastWordIndex = { index ->
+                if (it == viewModel.pages.size - 1) {
+                    viewModel.setLastWordIndex(index)
+                }
+            },
+            onSelectWord = onSelectWord
+        )
     }
 }

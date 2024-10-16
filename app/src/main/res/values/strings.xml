@@ -22,4 +22,5 @@
     <string name="menu">Меню</string>
     <string name="have_read">Прочитано</string>
     <string name="close_book">Закрыть книгу</string>
+    <string name="show_summarization">Смотреть пересказ</string>
 </resources>

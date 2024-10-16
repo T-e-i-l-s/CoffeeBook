@@ -44,4 +44,22 @@ class ReaderScreenViewModel @Inject constructor(
             loadingStatus = LoadingStatus.LOADED
         }
     }
+
+    // Открыто ли окно со значением слова
+    var showWordMeaning by mutableStateOf(false)
+        private  set
+
+    // Слово, значение которого нужно показать
+    var selectedWord by mutableStateOf<String?>(null)
+        private  set
+
+    fun showWordMeaning(word: String) {
+        selectedWord = word
+        showWordMeaning = true
+    }
+
+    fun resetSelection() {
+        showWordMeaning = false
+        selectedWord = null
+    }
 }
