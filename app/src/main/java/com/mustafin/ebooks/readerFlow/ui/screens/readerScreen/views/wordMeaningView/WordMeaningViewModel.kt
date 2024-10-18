@@ -6,27 +6,24 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mustafin.ebooks.core.domain.enums.LoadingStatus
-import kotlinx.coroutines.delay
+import com.mustafin.ebooks.mainFlow.domain.models.WordMeaningModel
+import com.mustafin.ebooks.readerFlow.data.repositories.dictionaryRepository.DictionaryRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class WordMeaningViewModel: ViewModel() {
-    val word = "Привет" // TODO: Перенести в Factory
-
+@HiltViewModel
+class WordMeaningViewModel @Inject constructor(
+    private val dictionaryRepository: DictionaryRepository
+): ViewModel() {
     var loadingStatus by mutableStateOf(LoadingStatus.LOADING)
         private set
 
-    // Значение слова
-    var meaning by mutableStateOf<String?>(null)
-        private set
+    var wordMeaning by mutableStateOf<WordMeaningModel?>(null)
 
-    init {
-        findMeaning()
-    }
-
-    private fun findMeaning() {
+    fun getWordMeaning(word: String) {
         viewModelScope.launch {
-            delay(1000)
-            meaning = "Обращённое к кому-н. выражение чувства личной приязни, доброго пожелания, солидарности и т. п."
+            wordMeaning = dictionaryRepository.getWordMeaning(word)
             loadingStatus = LoadingStatus.LOADED
         }
     }

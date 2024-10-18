@@ -2,6 +2,7 @@ package com.mustafin.ebooks.core.di
 
 import android.content.Context
 import androidx.room.Room
+import com.mustafin.ebooks.core.data.repositories.booksRepository.BooksRepository
 import com.mustafin.ebooks.core.data.repositories.booksRepository.BooksRepositoryImpl
 import com.mustafin.ebooks.core.data.source.local.booksDatabase.BooksDatabase
 import dagger.Module
@@ -16,7 +17,7 @@ import javax.inject.Singleton
 object CoreModule {
     @Provides
     @Singleton
-    fun provideBooksRepository(booksDatabase: BooksDatabase): BooksRepositoryImpl {
+    fun provideBooksRepository(booksDatabase: BooksDatabase): BooksRepository {
         return BooksRepositoryImpl(booksDatabase)
     }
 

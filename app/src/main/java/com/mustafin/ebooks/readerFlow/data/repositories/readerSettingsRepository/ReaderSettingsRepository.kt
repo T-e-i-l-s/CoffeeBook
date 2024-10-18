@@ -1,4 +1,4 @@
-package com.mustafin.ebooks.readerFlow.data.repositories
+package com.mustafin.ebooks.readerFlow.data.repositories.readerSettingsRepository
 
 import com.mustafin.ebooks.readerFlow.domain.models.ReaderSettingsModel
 

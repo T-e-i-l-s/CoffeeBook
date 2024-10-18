@@ -5,9 +5,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mustafin.ebooks.core.data.repositories.booksRepository.BooksRepository
 import com.mustafin.ebooks.core.data.repositories.booksRepository.BooksRepositoryImpl
 import com.mustafin.ebooks.core.domain.enums.LoadingStatus
-import com.mustafin.ebooks.readerFlow.data.repositories.ReaderSettingsRepositoryImpl
+import com.mustafin.ebooks.readerFlow.data.repositories.readerSettingsRepository.ReaderSettingsRepository
+import com.mustafin.ebooks.readerFlow.data.repositories.readerSettingsRepository.ReaderSettingsRepositoryImpl
 import com.mustafin.ebooks.readerFlow.domain.models.BookModel
 import com.mustafin.ebooks.readerFlow.domain.models.ReaderSettingsModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,8 +21,8 @@ import javax.inject.Inject
 // ViewModel читалки
 @HiltViewModel
 class ReaderScreenViewModel @Inject constructor(
-    private val booksRepositoryImpl: BooksRepositoryImpl,
-    private val readerSettingsRepositoryImpl: ReaderSettingsRepositoryImpl
+    private val booksRepositoryImpl: BooksRepository,
+    private val readerSettingsRepositoryImpl: ReaderSettingsRepository
 ): ViewModel() {
     var loadingStatus by mutableStateOf(LoadingStatus.LOADING)
 
