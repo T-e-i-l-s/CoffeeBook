@@ -6,7 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mustafin.ebooks.core.domain.enums.LoadingStatus
-import com.mustafin.ebooks.mainFlow.domain.models.WordMeaningModel
+import com.mustafin.ebooks.readerFlow.domain.models.WordMeaningModel
 import com.mustafin.ebooks.readerFlow.data.repositories.dictionaryRepository.DictionaryRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

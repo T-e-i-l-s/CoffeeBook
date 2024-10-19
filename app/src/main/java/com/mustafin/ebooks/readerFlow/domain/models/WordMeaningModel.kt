@@ -1,4 +1,4 @@
-package com.mustafin.ebooks.mainFlow.domain.models
+package com.mustafin.ebooks.readerFlow.domain.models
 
 data class WordMeaningModel(
     val word: String,
