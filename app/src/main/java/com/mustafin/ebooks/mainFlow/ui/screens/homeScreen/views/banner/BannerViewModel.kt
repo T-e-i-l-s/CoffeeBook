@@ -6,7 +6,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.AndroidViewModel
 import com.mustafin.ebooks.R
-import com.mustafin.ebooks.core.domain.enums.LoadingStatus
 import com.mustafin.ebooks.mainFlow.domain.models.BannerModel
 
 class BannerViewModel(application: Application) : AndroidViewModel(application) {

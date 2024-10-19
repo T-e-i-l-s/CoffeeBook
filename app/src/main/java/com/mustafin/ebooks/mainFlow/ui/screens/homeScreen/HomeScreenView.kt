@@ -22,6 +22,7 @@ import com.mustafin.ebooks.mainFlow.ui.screens.homeScreen.views.addBookSheet.Add
 import com.mustafin.ebooks.mainFlow.ui.screens.homeScreen.views.addBookSheet.AddBookViewModel
 import com.mustafin.ebooks.mainFlow.ui.screens.homeScreen.views.banner.BannerView
 import com.mustafin.ebooks.mainFlow.ui.screens.homeScreen.views.booksView.BooksView
+import com.mustafin.ebooks.mainFlow.ui.screens.homeScreen.views.statisticsView.StatisticsView
 
 // Главный экран приложения
 @OptIn(ExperimentalMaterial3Api::class)
@@ -47,10 +48,12 @@ fun HomeScreenView(openReader: (bookId: Int) -> Unit) {
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            BannerView(Modifier.padding(horizontal = 12.dp))
-        }
+            StatisticsView()
 
-        item {
+            Spacer(modifier = Modifier.height(12.dp))
+
+            BannerView(Modifier.padding(horizontal = 12.dp))
+
             Spacer(modifier = Modifier.navigationBarsPadding())
         }
     }
