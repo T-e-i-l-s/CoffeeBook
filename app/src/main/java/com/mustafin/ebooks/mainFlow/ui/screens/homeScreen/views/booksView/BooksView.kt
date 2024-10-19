@@ -75,7 +75,7 @@ fun BooksView(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .heightIn(min = 250.dp)
+            .height(254.dp)
             .animateContentSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
@@ -98,7 +98,7 @@ fun BooksView(
         } else if (loadingStatus == LoadingStatus.LOADING) {
             CustomProgressIndicator(
                 size = 21.dp,
-                color = colorResource(id = R.color.text),
+                color = colorResource(id = R.color.additional),
             )
 
             Spacer(modifier = Modifier.height(8.dp))

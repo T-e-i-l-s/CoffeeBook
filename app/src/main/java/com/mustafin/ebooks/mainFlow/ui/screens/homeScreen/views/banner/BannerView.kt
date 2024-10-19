@@ -15,8 +15,10 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -32,38 +34,35 @@ import com.mustafin.ebooks.core.ui.components.CustomProgressIndicator
 fun BannerView(modifier: Modifier) {
     val viewModel: BannerViewModel = viewModel()
 
-    LaunchedEffect(Unit) {
-        viewModel.selectBanner()
-    }
-
     Row(
         modifier = modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(12.dp))
-            .background(colorResource(id = R.color.secondary_background))
+            .background(
+                Brush.horizontalGradient(
+                    listOf(
+                        colorResource(id = R.color.promo_banner_gradient_start),
+                        colorResource(id = R.color.promo_banner_gradient_end)
+                    )
+                )
+            )
             .padding(12.dp),
-        verticalAlignment = Alignment.Bottom
+        verticalAlignment = Alignment.CenterVertically
     ) {
-        if (viewModel.loadingStatus == LoadingStatus.LOADED) {
-            Text(
-                text = viewModel.selectedBanner!!.title,
-                color = colorResource(id = R.color.text),
-                fontWeight = FontWeight.ExtraBold,
-                fontSize = 21.sp,
-                fontFamily = APP_DEFAULT_FONT,
-                modifier = Modifier.weight(1f)
-            )
-            
-            Spacer(modifier = Modifier.width(12.dp))
+        Text(
+            text = viewModel.selectedBanner.title,
+            color = colorResource(id = R.color.background),
+            fontWeight = FontWeight.Normal,
+            fontSize = 18.sp,
+            fontFamily = APP_DEFAULT_FONT,
+            modifier = Modifier.weight(1f)
+        )
 
-            Icon(
-                bitmap = viewModel.selectedBanner!!.drawable.toBitmap().asImageBitmap(),
-                contentDescription = null,
-                modifier = Modifier.size(80.dp),
-                tint = colorResource(id = R.color.text)
-            )
-        } else if (viewModel.loadingStatus == LoadingStatus.LOADING) {
-            CustomProgressIndicator(color = colorResource(id = R.color.text), size = 21.dp)
-        }
+        Icon(
+            painter = painterResource(id = R.drawable.arrow_right_icon),
+            contentDescription = null,
+            modifier = Modifier.size(18.dp),
+            tint = colorResource(id = R.color.background),
+        )
     }
 }

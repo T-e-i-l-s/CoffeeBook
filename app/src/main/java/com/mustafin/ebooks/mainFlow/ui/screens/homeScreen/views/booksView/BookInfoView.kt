@@ -48,7 +48,7 @@ fun BookInfoView(book: ShortBookModel, openReader: (bookId: Int) -> Unit) {
             contentDescription = null,
             modifier = Modifier
                 .width(150.dp)
-                .height(250.dp)
+                .height(230.dp)
                 .clip(RoundedCornerShape(4.dp))
                 .background(colorResource(id = R.color.gray)),
             contentScale = ContentScale.Crop
