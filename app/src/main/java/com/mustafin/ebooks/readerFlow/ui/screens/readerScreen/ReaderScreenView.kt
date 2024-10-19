@@ -33,7 +33,7 @@ import com.mustafin.ebooks.readerFlow.ui.screens.readerScreen.views.wordMeaningV
 // View экрана читалки
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ReaderScreenView(bookId: Int) {
+fun ReaderScreenView(bookId: Int, openHomeScreen: () -> Unit) {
     val viewModel: ReaderScreenViewModel = hiltViewModel()
 
     LaunchedEffect(Unit) {
@@ -70,7 +70,11 @@ fun ReaderScreenView(bookId: Int) {
                     containerColor = colorResource(id = R.color.background),
                     windowInsets = WindowInsets(0, 0, 0, 0)
                 ) {
-                    MenuView(book = viewModel.book, progress = readingProgress)
+                    MenuView(
+                        book = viewModel.book,
+                        progress = readingProgress,
+                        openHomeScreen = openHomeScreen
+                    )
                 }
             }
 

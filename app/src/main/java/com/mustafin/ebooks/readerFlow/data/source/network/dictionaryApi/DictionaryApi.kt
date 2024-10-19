@@ -10,19 +10,13 @@ class DictionaryApi @Inject constructor(retrofit: Retrofit) {
         retrofit.create(DictionaryService::class.java)
     }
 
-    data class GetWordMeaningResult(
-        val responseStatus: ResponseStatus,
-        val wordMeaning: WordMeaningModel?
-    )
-
     // Запрос на получение значения слова из сети
-    suspend fun getWordMeaning(word: String): GetWordMeaningResult {
+    suspend fun getWordMeaning(word: String): Pair<ResponseStatus, WordMeaningModel?> {
         return try {
             val response = service.getWordMeaning(word)
 
-            println(response)
             if (response.isSuccessful) {
-                GetWordMeaningResult(
+                Pair(
                     ResponseStatus.SUCCESS,
                     WordMeaningModel(
                         response.body()!!.search[0].label,
@@ -30,13 +24,12 @@ class DictionaryApi @Inject constructor(retrofit: Retrofit) {
                     )
                 )
             } else if (response.code() >= 500) {
-                GetWordMeaningResult(ResponseStatus.NETWORK_ERROR, null)
+                Pair(ResponseStatus.NETWORK_ERROR, null)
             } else {
-                GetWordMeaningResult(ResponseStatus.ERROR, null)
+                Pair(ResponseStatus.ERROR, null)
             }
         } catch (e: Exception) {
-            println("LOCAL ERROR $e")
-            GetWordMeaningResult(ResponseStatus.ERROR, null)
+            Pair(ResponseStatus.ERROR, null)
         }
     }
 }

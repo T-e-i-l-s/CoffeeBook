@@ -11,24 +11,27 @@ import kotlinx.serialization.Serializable
 
 
 // Экраны приложения для Type Safe Navigation
-@Serializable object HomeScreen
-@Serializable data class ReaderScreen(val bookId: Int)
+@Serializable
+private object HomeScreen
+@Serializable
+private data class ReaderScreen(val bookId: Int)
 
 // Граф навигации
 @Composable
 fun NavigationGraph() {
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = HomeScreen){
+    NavHost(navController = navController, startDestination = HomeScreen) {
         composable<HomeScreen> {
-            HomeScreenView(openReader = { bookId ->
-                navController.navigate(ReaderScreen(bookId))
-            })
+            HomeScreenView(openReader = { bookId -> navController.navigate(ReaderScreen(bookId)) })
         }
 
         composable<ReaderScreen> {
             val args: ReaderScreen = it.toRoute()
-            ReaderScreenView(args.bookId)
+            ReaderScreenView(
+                args.bookId,
+                openHomeScreen = { navController.navigate(HomeScreen) }
+            )
         }
     }
 }

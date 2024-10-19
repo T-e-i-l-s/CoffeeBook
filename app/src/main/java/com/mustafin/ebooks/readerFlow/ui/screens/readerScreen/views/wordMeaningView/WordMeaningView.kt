@@ -1,6 +1,5 @@
 package com.mustafin.ebooks.readerFlow.ui.screens.readerScreen.views.wordMeaningView
 
-import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,11 +12,11 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.mustafin.ebooks.R
 import com.mustafin.ebooks.core.domain.APP_DEFAULT_FONT
 import com.mustafin.ebooks.core.domain.enums.LoadingStatus
@@ -35,7 +34,6 @@ fun WordMeaningView(word: String) {
     Column(
         Modifier
             .fillMaxWidth()
-            .animateContentSize()
             .padding(horizontal = 12.dp)
             .padding(bottom = 12.dp)
             .navigationBarsPadding(),
@@ -52,17 +50,44 @@ fun WordMeaningView(word: String) {
 
         Spacer(modifier = Modifier.height(4.dp))
 
-        if (viewModel.loadingStatus == LoadingStatus.LOADED) {
-            Text(
-                text = viewModel.wordMeaning!!.description,
-                color = colorResource(id = R.color.text),
-                fontSize = 15.sp,
-                fontFamily = APP_DEFAULT_FONT,
-                fontWeight = FontWeight.Thin,
-                modifier = Modifier.fillMaxWidth()
-            )
-        } else {
-            CustomProgressIndicator(color = colorResource(id = R.color.additional), size = 21.dp)
+        when(viewModel.loadingStatus) {
+            LoadingStatus.LOADED -> {
+                when (viewModel.wordMeaning) {
+                    null -> {
+                        Text(
+                            text = stringResource(id = R.string.word_meaning_not_found),
+                            color = colorResource(id = R.color.text),
+                            fontSize = 15.sp,
+                            fontFamily = APP_DEFAULT_FONT,
+                            fontWeight = FontWeight.Thin,
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                    }
+                    else -> {
+                        Text(
+                            text = viewModel.wordMeaning!!.description,
+                            color = colorResource(id = R.color.text),
+                            fontSize = 15.sp,
+                            fontFamily = APP_DEFAULT_FONT,
+                            fontWeight = FontWeight.Thin,
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                    }
+                }
+            }
+            LoadingStatus.LOADING -> {
+                CustomProgressIndicator(color = colorResource(id = R.color.additional), size = 21.dp)
+            }
+            LoadingStatus.ERROR -> {
+                Text(
+                    text = stringResource(id = R.string.loading_error),
+                    color = colorResource(id = R.color.text),
+                    fontSize = 15.sp,
+                    fontFamily = APP_DEFAULT_FONT,
+                    fontWeight = FontWeight.Thin,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
         }
     }
 }

@@ -4,6 +4,7 @@
     <!--  Общее  -->
     <string name="add_book">Добавить книгу</string>
     <string name="add">Добавить</string>
+    <string name="loading_error">ошибка загрузки</string>
 
     <!--  Главный экран  -->
     <string name="my_books">Мои книги</string>
@@ -23,4 +24,5 @@
     <string name="have_read">Прочитано</string>
     <string name="close_book">Закрыть книгу</string>
     <string name="show_summarization">Смотреть пересказ</string>
+    <string name="word_meaning_not_found">Значение не найдено</string>
 </resources>

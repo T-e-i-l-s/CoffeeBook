@@ -26,7 +26,7 @@ import java.util.Locale
 
 // View меню с информацией о книге и найтройками ридера
 @Composable
-fun MenuView(book: BookModel, progress: Float) {
+fun MenuView(book: BookModel, progress: Float, openHomeScreen: () -> Unit) {
     Column(
         Modifier
             .fillMaxWidth()
@@ -67,19 +67,20 @@ fun MenuView(book: BookModel, progress: Float) {
         Spacer(modifier = Modifier.height(12.dp))
 
         Row {
-            SmallButton(
-                label = stringResource(id = R.string.show_summarization),
-                background = colorResource(id = R.color.secondary_background),
-                textColor = colorResource(id = R.color.text)
-            ) {}
-
-            Spacer(modifier = Modifier.width(12.dp))
+//            SmallButton(
+//                label = stringResource(id = R.string.show_summarization),
+//                background = colorResource(id = R.color.secondary_background),
+//                textColor = colorResource(id = R.color.text)
+//            ) {}
+//
+//            Spacer(modifier = Modifier.width(12.dp))
 
             SmallButton(
                 label = stringResource(id = R.string.close_book),
                 background = colorResource(id = R.color.additional),
-                textColor = colorResource(id = R.color.background)
-            ) {}
+                textColor = colorResource(id = R.color.background),
+                onClick = openHomeScreen
+            )
         }
     }
 }
