@@ -25,7 +25,6 @@ class StatisticsViewModel @Inject constructor(
 
     fun loadStatistics() {
         viewModelScope.launch {
-            loadingStatus = LoadingStatus.LOADING
             statistics = statisticsRepository.getStatistics()
             loadingStatus = LoadingStatus.LOADED
         }

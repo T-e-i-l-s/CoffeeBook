@@ -10,7 +10,7 @@ interface BooksDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addBook(book: BookEntity)
 
-    @Query("SELECT * FROM books")
+    @Query("SELECT * FROM books ORDER BY id DESC")
     suspend fun getBooks(): List<BookEntity>
 
     @Query("SELECT * FROM books WHERE id = :bookId")
