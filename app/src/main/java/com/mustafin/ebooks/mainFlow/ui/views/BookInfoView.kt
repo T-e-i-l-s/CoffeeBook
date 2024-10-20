@@ -1,4 +1,4 @@
-package com.mustafin.ebooks.mainFlow.ui.screens.homeScreen.views.booksView
+package com.mustafin.ebooks.mainFlow.ui.views
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -38,6 +38,7 @@ fun BookInfoView(book: ShortBookModel, openReader: (bookId: Int) -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
+            .height(254.dp)
             .clip(RoundedCornerShape(12.dp))
             .background(colorResource(id = R.color.secondary_background))
             .clickable(

@@ -25,7 +25,10 @@ import com.mustafin.ebooks.mainFlow.ui.screens.homeScreen.views.statisticsView.S
 // Главный экран приложения
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreenView(openReader: (bookId: Int) -> Unit) {
+fun HomeScreenView(
+    openReader: (bookId: Int) -> Unit,
+    openAllBooksScreen: () -> Unit,
+) {
     val viewModel: HomeScreenViewModel = hiltViewModel()
 
     LazyColumn(
@@ -41,7 +44,8 @@ fun HomeScreenView(openReader: (bookId: Int) -> Unit) {
                 loadingStatus = viewModel.loadingStatus,
                 books = viewModel.books,
                 openAddBookSheet = { viewModel.openAddBookSheet() },
-                openReader = openReader
+                openReader = openReader,
+                openAllBooksScreen = openAllBooksScreen
             )
 
             Spacer(modifier = Modifier.height(12.dp))
