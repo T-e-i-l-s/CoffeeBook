@@ -17,7 +17,7 @@ fun BookContentView(
     onSelectWord: (String) -> Unit
 ) {
     val viewModel: BookContentViewModel =
-        viewModel(factory = BookContentViewModelFactory(book.content))
+        viewModel(factory = BookContentViewModelFactory(book))
 
     val pagerState = rememberPagerState { viewModel.pages.size }
 

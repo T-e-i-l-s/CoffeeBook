@@ -10,4 +10,6 @@ interface BooksRepository {
     suspend fun getBookById(bookId: Int): BookModel
 
     suspend fun addBook(book: BookEntity)
+    
+    suspend fun updateProgress(bookId: Int, rendered: List<List<String>>)
 }

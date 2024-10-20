@@ -8,12 +8,13 @@ import com.mustafin.ebooks.mainFlow.domain.models.ShortBookModel
 import com.mustafin.ebooks.readerFlow.domain.models.BookModel
 
 @Entity(tableName = "books")
-@TypeConverters(BookConverters::class)
+@TypeConverters(BookDbConvertersConverters::class)
 data class BookEntity(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val name: String,
     val preview: ByteArray,
     val content: List<String>,
+    val rendered: List<List<String>>
 ) {
     fun toShortBookModel(): ShortBookModel {
         return ShortBookModel(
@@ -27,7 +28,8 @@ data class BookEntity(
         return BookModel(
             id,
             name,
-            content
+            content,
+            rendered
         )
     }
 

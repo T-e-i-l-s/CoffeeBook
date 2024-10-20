@@ -6,12 +6,13 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import com.mustafin.ebooks.readerFlow.domain.models.BookModel
 
 // ViewModel блока с текстом книги
-class BookContentViewModel(private val bookContent: List<String>) : ViewModel() {
+class BookContentViewModel(private val book: BookModel) : ViewModel() {
     // Индексы слов в массиве, которые сейчас открыты
-    var firstWordIndex by mutableIntStateOf(0)
-    var lastWordIndex by mutableStateOf<Int?>(null)
+    private var firstWordIndex by mutableIntStateOf(0)
+    private var lastWordIndex by mutableStateOf<Int?>(null)
 
     // Сеттер для индекса последнего слова на странице в массиве
     fun setLastWordIndex(index: Int) {
@@ -33,20 +34,18 @@ class BookContentViewModel(private val bookContent: List<String>) : ViewModel() 
     // Функция загрузки контента страницы
     private fun loadContent() {
         pages.add(
-            bookContent.subList(
+            book.content.subList(
                 firstWordIndex,
-                (firstWordIndex + 1000).coerceAtMost(bookContent.size)
+                (firstWordIndex + 1000).coerceAtMost(book.content.size)
             )
         )
-        firstWordsOfAllPages.add(
-            firstWordIndex
-        )
+        firstWordsOfAllPages.add(firstWordIndex)
     }
 
     // Перелистывание на следующую страницу
     private fun generateNextPage() {
         println(firstWordIndex)
-        if (firstWordIndex + lastWordIndex!! < bookContent.size - 1) {
+        if (firstWordIndex + lastWordIndex!! < book.content.size - 1) {
             // Устанавливаем новые индексы
             firstWordIndex += lastWordIndex!!
             lastWordIndex = null
