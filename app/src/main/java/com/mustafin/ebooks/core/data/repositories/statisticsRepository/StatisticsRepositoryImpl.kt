@@ -7,8 +7,8 @@ class StatisticsRepositoryImpl: StatisticsRepository {
     override suspend fun getStatistics(): StatisticsModel {
         delay(1000)
         return StatisticsModel(
-            0.556f,
-            3
+            60,
+            10
         )
     }
 }

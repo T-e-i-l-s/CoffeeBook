@@ -16,6 +16,7 @@ import com.mustafin.ebooks.mainFlow.domain.models.AddBookViewStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -31,19 +32,24 @@ class AddBookViewModel @Inject constructor(
     // Функция обработки полученного файла
     fun precessData() {
         CoroutineScope(Dispatchers.IO).launch {
-            viewStatus = AddBookViewStatus.PROCESSING
-
             try {
+                // Сканируем текст книги
+                viewStatus = AddBookViewStatus.SCANNING
                 // Текст книги
                 val bookContent = pdfReader.extractTextFromPdf(selectedFileUri!!)
                 // Картинка первой страницы
                 val previewBitmap = pdfReader.extractPreviewFromPdf(selectedFileUri!!)
 
+                // Генерируем пересказ
+                viewStatus = AddBookViewStatus.SUMMARIZING
+                delay(1000)
+
                 // Добавляем книгу в Room
+                viewStatus = AddBookViewStatus.SAVING
                 booksRepository.addBook(
                     BookEntity(
                         name = selectedFileName!!,
-                        preview = previewBitmap!!.toByteArray(),
+                        preview = previewBitmap.toByteArray(),
                         content = ContentProcessor.separateContent(bookContent!!)
                     )
                 )

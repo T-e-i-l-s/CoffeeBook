@@ -12,7 +12,10 @@
     <string name="loading_books">Загружаем книги</string>
     <string name="empty_books_list">Книг пока нет</string>
     <string name="read">Читать</string>
-    <string name="average_progress">Прочитано в среднем</string>
+    <string name="reading_statistics">Статистика чтения</string>
+    <string name="reading_time_per_day">Сегодня</string>
+    <string name="summary_reading_time">За все время</string>
+    <string name="summarization">Пересказ</string>
 
     <!--  View добавления книги  -->
     <string name="select_file">Выбрать .pdf файл</string>

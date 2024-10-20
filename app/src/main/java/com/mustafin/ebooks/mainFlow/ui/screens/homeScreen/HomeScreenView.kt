@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -20,7 +19,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.mustafin.ebooks.R
 import com.mustafin.ebooks.mainFlow.ui.screens.homeScreen.views.addBookSheet.AddBookBottomSheetView
 import com.mustafin.ebooks.mainFlow.ui.screens.homeScreen.views.addBookSheet.AddBookViewModel
-import com.mustafin.ebooks.mainFlow.ui.screens.homeScreen.views.banner.BannerView
 import com.mustafin.ebooks.mainFlow.ui.screens.homeScreen.views.booksView.BooksView
 import com.mustafin.ebooks.mainFlow.ui.screens.homeScreen.views.statisticsView.StatisticsView
 
@@ -50,9 +48,9 @@ fun HomeScreenView(openReader: (bookId: Int) -> Unit) {
 
             StatisticsView()
 
-            Spacer(modifier = Modifier.height(12.dp))
+//            Spacer(modifier = Modifier.height(12.dp))
 
-            BannerView(Modifier.padding(horizontal = 12.dp))
+//            BannerView(Modifier.padding(horizontal = 12.dp))
 
             Spacer(modifier = Modifier.navigationBarsPadding())
         }

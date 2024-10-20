@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -16,17 +17,19 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mustafin.ebooks.R
 import com.mustafin.ebooks.core.domain.APP_DEFAULT_FONT
+import com.mustafin.ebooks.core.ui.components.SmallButton
 import com.mustafin.ebooks.mainFlow.domain.models.ShortBookModel
 
 // Ячейка с информацией о книге на главном экране
@@ -57,15 +60,24 @@ fun BookInfoView(book: ShortBookModel, openReader: (bookId: Int) -> Unit) {
         Spacer(modifier = Modifier.width(12.dp))
 
         Column(
-            verticalArrangement = Arrangement.Top,
-            horizontalAlignment = Alignment.Start
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
                 text = book.name,
                 color = colorResource(id = R.color.text),
-                fontWeight = FontWeight.Medium,
-                fontSize = 21.sp,
-                fontFamily = APP_DEFAULT_FONT
+                fontWeight = FontWeight.SemiBold,
+                fontSize = 18.sp,
+                fontFamily = APP_DEFAULT_FONT,
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis
+            )
+
+            SmallButton(
+                label = stringResource(id = R.string.read),
+                background = colorResource(id = R.color.additional),
+                textColor = colorResource(id = R.color.background),
+                onClick = { openReader(book.id) },
             )
         }
     }

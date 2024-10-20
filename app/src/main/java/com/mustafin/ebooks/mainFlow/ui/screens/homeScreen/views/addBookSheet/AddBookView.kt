@@ -83,35 +83,19 @@ fun AddBookBottomSheetView(reloadBooksList: () -> Unit) {
 
                 CustomButton(
                     label = stringResource(id = R.string.add_book),
-                    background = colorResource(id = R.color.text),
-                    textColor = colorResource(id = R.color.background),
+                    background = colorResource(id = R.color.additional),
+                    textColor = colorResource(id = R.color.white),
                     enabled = viewModel.isSelected,
                     modifier = Modifier.fillMaxWidth()
                 ) { viewModel.precessData() }
-            }
-
-            AddBookViewStatus.PROCESSING -> {
-                CustomProgressIndicator(
-                    size = 21.dp,
-                    color = colorResource(id = R.color.text),
-                )
-
-                Spacer(modifier = Modifier.height(8.dp))
-
-                Text(
-                    text = stringResource(id = R.string.book_processing),
-                    color = colorResource(id = R.color.text),
-                    fontSize = 18.sp,
-                    fontFamily = APP_DEFAULT_FONT
-                )
             }
 
             AddBookViewStatus.ERROR -> {
                 Icon(
                     painter = painterResource(id = R.drawable.error_icon),
                     contentDescription = null,
-                    tint = colorResource(id = R.color.text),
-                    modifier = Modifier.size(31.dp),
+                    tint = colorResource(id = R.color.additional),
+                    modifier = Modifier.size(25.dp),
                 )
 
                 Spacer(modifier = Modifier.height(4.dp))
@@ -128,14 +112,30 @@ fun AddBookBottomSheetView(reloadBooksList: () -> Unit) {
                 Icon(
                     painter = painterResource(id = R.drawable.check_icon),
                     contentDescription = null,
-                    tint = colorResource(id = R.color.text),
-                    modifier = Modifier.size(31.dp),
+                    tint = colorResource(id = R.color.additional),
+                    modifier = Modifier.size(25.dp),
                 )
 
                 Spacer(modifier = Modifier.height(4.dp))
 
                 Text(
                     text = stringResource(id = R.string.book_processing_success),
+                    color = colorResource(id = R.color.text),
+                    fontSize = 18.sp,
+                    fontFamily = APP_DEFAULT_FONT
+                )
+            }
+
+            else -> {
+                CustomProgressIndicator(
+                    size = 21.dp,
+                    color = colorResource(id = R.color.additional),
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                Text(
+                    text = viewModel.viewStatus.label!!,
                     color = colorResource(id = R.color.text),
                     fontSize = 18.sp,
                     fontFamily = APP_DEFAULT_FONT

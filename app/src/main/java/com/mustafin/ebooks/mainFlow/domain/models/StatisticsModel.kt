@@ -1,6 +1,7 @@
 package com.mustafin.ebooks.mainFlow.domain.models
 
+// Модель хранения данных статистики чтения
 data class StatisticsModel(
-    val averageProgress: Float,
-    val booksLoaded: Int
+    val summaryReadingTime: Int,
+    val readingTimeToday: Int,
 )

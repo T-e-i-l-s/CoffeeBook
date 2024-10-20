@@ -5,20 +5,16 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -28,9 +24,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.mustafin.ebooks.R
 import com.mustafin.ebooks.core.domain.APP_DEFAULT_FONT
 import com.mustafin.ebooks.core.domain.enums.LoadingStatus
+import com.mustafin.ebooks.core.domain.extensions.mapMinutesToTimeString
 import com.mustafin.ebooks.core.ui.components.CustomProgressIndicator
-import kotlin.math.roundToInt
 
+// View со статистикой
 @Composable
 fun StatisticsView() {
     val viewModel: StatisticsViewModel = hiltViewModel()
@@ -47,40 +44,52 @@ fun StatisticsView() {
             .clip(RoundedCornerShape(12.dp))
             .background(colorResource(id = R.color.secondary_background))
             .padding(12.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
         if (viewModel.loadingStatus == LoadingStatus.LOADING) {
-            CustomProgressIndicator(
-                color = colorResource(id = R.color.additional),
-                size = 21.dp,
-            )
-        } else {
-            Box {
-                CircularProgressIndicator(
-                    progress = { viewModel.statistics!!.averageProgress },
+            Box(modifier = Modifier.fillMaxSize()) {
+                CustomProgressIndicator(
                     color = colorResource(id = R.color.additional),
-                    trackColor = colorResource(id = R.color.background),
-                    strokeCap = StrokeCap.Round,
-                    modifier = Modifier.size(150.dp),
-                    strokeWidth = 6.dp
-                )
-                Text(
-                    text = "${(viewModel.statistics!!.averageProgress * 100).roundToInt()}%",
-                    color = colorResource(id = R.color.additional),
-                    fontWeight = FontWeight.SemiBold,
-                    fontSize = 36.sp,
-                    fontFamily = APP_DEFAULT_FONT,
+                    size = 21.dp,
                     modifier = Modifier.align(Alignment.Center)
                 )
             }
-
-            Spacer(modifier = Modifier.height(12.dp))
-
+        } else {
             Text(
-                text = stringResource(id = R.string.average_progress),
+                text = stringResource(id = R.string.reading_statistics),
                 color = colorResource(id = R.color.text),
                 fontSize = 18.sp,
+                fontFamily = APP_DEFAULT_FONT,
+                fontWeight = FontWeight.Bold
+            )
+
+            Text(
+                text = stringResource(id = R.string.reading_time_per_day),
+                color = colorResource(id = R.color.gray),
+                fontSize = 15.sp,
+                fontFamily = APP_DEFAULT_FONT,
+                fontWeight = FontWeight.Normal
+            )
+            Text(
+                text = viewModel.statistics!!.readingTimeToday.mapMinutesToTimeString(),
+                color = colorResource(id = R.color.text),
+                fontSize = 27.sp,
+                fontFamily = APP_DEFAULT_FONT,
+                fontWeight = FontWeight.Normal
+            )
+
+
+            Text(
+                text = stringResource(id = R.string.summary_reading_time),
+                color = colorResource(id = R.color.gray),
+                fontSize = 15.sp,
+                fontFamily = APP_DEFAULT_FONT,
+                fontWeight = FontWeight.Normal
+            )
+            Text(
+                text = viewModel.statistics!!.summaryReadingTime.mapMinutesToTimeString(),
+                color = colorResource(id = R.color.text),
+                fontSize = 27.sp,
                 fontFamily = APP_DEFAULT_FONT,
                 fontWeight = FontWeight.Normal
             )
