@@ -5,7 +5,6 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
 import com.mustafin.ebooks.readerFlow.domain.models.BookModel
 import com.mustafin.ebooks.readerFlow.domain.models.ReaderProgressModel

@@ -1,5 +1,6 @@
 [versions]
 agp = "8.5.1"
+analytics = "7.2.0"
 constraintlayoutCompose = "1.0.1"
 converterGson = "2.9.0"
 hiltAndroidVersion = "2.49"
@@ -21,6 +22,7 @@ retrofit = "2.9.0"
 roomKtx = "2.6.1"
 
 [libraries]
+analytics = { module = "io.appmetrica.analytics:analytics", version.ref = "analytics" }
 androidx-constraintlayout-compose = { module = "androidx.constraintlayout:constraintlayout-compose", version.ref = "constraintlayoutCompose" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }

@@ -58,6 +58,9 @@ android {
 }
 
 dependencies {
+    // AppMetrica
+    implementation(libs.analytics)
+
     // Retrofit & Gson
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
