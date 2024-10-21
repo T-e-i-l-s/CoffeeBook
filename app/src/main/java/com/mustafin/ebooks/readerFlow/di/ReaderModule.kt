@@ -1,14 +1,20 @@
 package com.mustafin.ebooks.readerFlow.di
 
+import android.content.Context
+import androidx.room.Room
 import com.mustafin.ebooks.readerFlow.data.repositories.dictionaryRepository.DictionaryRepository
 import com.mustafin.ebooks.readerFlow.data.repositories.dictionaryRepository.DictionaryRepositoryImpl
+import com.mustafin.ebooks.readerFlow.data.repositories.readerProgressRepository.ReaderProgressRepository
+import com.mustafin.ebooks.readerFlow.data.repositories.readerProgressRepository.ReaderProgressRepositoryImpl
 import com.mustafin.ebooks.readerFlow.data.repositories.readerSettingsRepository.ReaderSettingsRepository
 import com.mustafin.ebooks.readerFlow.data.repositories.readerSettingsRepository.ReaderSettingsRepositoryImpl
+import com.mustafin.ebooks.readerFlow.data.source.local.readerProgressDatabase.ReaderProgressDatabase
 import com.mustafin.ebooks.readerFlow.data.source.network.dictionaryApi.DictionaryApi
 import com.mustafin.ebooks.readerFlow.domain.DICTIONARY_API_BASE_URL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -24,6 +30,22 @@ object ReaderModule {
             .baseUrl(DICTIONARY_API_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideReaderProgressDatabase(@ApplicationContext context: Context): ReaderProgressDatabase {
+        return Room.databaseBuilder(
+            context.applicationContext,
+            ReaderProgressDatabase::class.java,
+            "reader_progress_database"
+        ).build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideReaderProgressRepository(readerProgressDatabase: ReaderProgressDatabase): ReaderProgressRepository {
+        return ReaderProgressRepositoryImpl(readerProgressDatabase)
     }
 
     @Provides

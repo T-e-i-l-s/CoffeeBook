@@ -50,8 +50,7 @@ class AddBookViewModel @Inject constructor(
                     BookEntity(
                         name = selectedFileName!!,
                         preview = previewBitmap.toByteArray(),
-                        content = ContentProcessor.separateContent(bookContent!!),
-                        rendered = emptyList()
+                        content = ContentProcessor.separateContent(bookContent)
                     )
                 )
 

@@ -1,6 +1,5 @@
 package com.mustafin.ebooks.core.data.repositories.booksRepository
 
-import com.mustafin.ebooks.core.data.source.local.booksDatabase.BookDbConvertersConverters
 import com.mustafin.ebooks.core.data.source.local.booksDatabase.BookEntity
 import com.mustafin.ebooks.core.data.source.local.booksDatabase.BooksDatabase
 import com.mustafin.ebooks.mainFlow.domain.models.ShortBookModel
@@ -21,10 +20,5 @@ class BooksRepositoryImpl @Inject constructor(
 
     override suspend fun addBook(book: BookEntity) {
         booksDatabase.booksDao().addBook(book)
-    }
-
-    override suspend fun updateProgress(bookId: Int, rendered: List<List<String>>) {
-        val converter = BookDbConvertersConverters()
-        booksDatabase.booksDao().updateProgress(bookId, converter.renderedListToString(rendered))
     }
 }

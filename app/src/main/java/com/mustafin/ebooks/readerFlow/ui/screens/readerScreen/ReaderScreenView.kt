@@ -52,11 +52,15 @@ fun ReaderScreenView(bookId: Int, openHomeScreen: () -> Unit) {
             var readingProgress by remember { mutableFloatStateOf(0f) }
 
             BookContentView(
-                viewModel.book,
-                Modifier
+                book = viewModel.book,
+                readerProgress = viewModel.readerProgress,
+                modifier = Modifier
                     .weight(1f)
                     .fillMaxWidth(),
-                setReadingProgress = { readingProgress = it },
+                setReadingProgress = { progress, readerProgress ->
+                    readingProgress = progress
+                    viewModel.saveRenderedPages(readerProgress)
+                },
                 onSelectWord = { viewModel.showWordMeaning(it) }
             )
 

@@ -35,7 +35,6 @@ class HomeScreenViewModel @Inject constructor(
             books = withContext(Dispatchers.IO) {
                 booksRepository.getBooks()
             }
-            println(books)
             loadingStatus = LoadingStatus.LOADED
         }
     }

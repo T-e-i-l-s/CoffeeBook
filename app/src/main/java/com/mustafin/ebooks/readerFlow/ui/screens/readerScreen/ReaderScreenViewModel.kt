@@ -7,10 +7,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mustafin.ebooks.core.data.repositories.booksRepository.BooksRepository
 import com.mustafin.ebooks.core.domain.enums.LoadingStatus
+import com.mustafin.ebooks.readerFlow.data.repositories.readerProgressRepository.ReaderProgressRepository
 import com.mustafin.ebooks.readerFlow.data.repositories.readerSettingsRepository.ReaderSettingsRepository
 import com.mustafin.ebooks.readerFlow.domain.models.BookModel
+import com.mustafin.ebooks.readerFlow.domain.models.ReaderProgressModel
 import com.mustafin.ebooks.readerFlow.domain.models.ReaderSettingsModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -19,13 +22,16 @@ import javax.inject.Inject
 // ViewModel читалки
 @HiltViewModel
 class ReaderScreenViewModel @Inject constructor(
-    private val booksRepositoryImpl: BooksRepository,
-    private val readerSettingsRepositoryImpl: ReaderSettingsRepository
-): ViewModel() {
+    private val booksRepository: BooksRepository,
+    private val readerProgressRepository: ReaderProgressRepository,
+    private val readerSettingsRepository: ReaderSettingsRepository
+) : ViewModel() {
     var loadingStatus by mutableStateOf(LoadingStatus.LOADING)
 
     // Книга, которая открыта в читалке
     lateinit var book: BookModel
+    // Прогресс чтения открытой книги
+    lateinit var readerProgress: ReaderProgressModel
 
     // Настройки читалки
     private var readerSettings by mutableStateOf<ReaderSettingsModel?>(null)
@@ -38,20 +44,28 @@ class ReaderScreenViewModel @Inject constructor(
         viewModelScope.launch {
             loadingStatus = LoadingStatus.LOADING
             withContext(Dispatchers.IO) {
-                book = booksRepositoryImpl.getBookById(1) // TODO: Убрать заглушку
-                readerSettings = readerSettingsRepositoryImpl.getReaderSettings()
+                book = booksRepository.getBookById(1) // TODO: Убрать заглушку
+                readerProgress = readerProgressRepository.getProgress(1)
+                readerSettings = readerSettingsRepository.getReaderSettings()
             }
             loadingStatus = LoadingStatus.LOADED
         }
     }
 
+    // Сохранить страницы, которые были открыты
+    fun saveRenderedPages(readerProgress: ReaderProgressModel) {
+        CoroutineScope(Dispatchers.IO).launch {
+            readerProgressRepository.setProgress(book.id, readerProgress)
+        }
+    }
+
     // Открыто ли окно со значением слова
     var showWordMeaning by mutableStateOf(false)
-        private  set
+        private set
 
     // Слово, значение которого нужно показать
     var selectedWord by mutableStateOf<String?>(null)
-        private  set
+        private set
 
     fun showWordMeaning(word: String) {
         selectedWord = word

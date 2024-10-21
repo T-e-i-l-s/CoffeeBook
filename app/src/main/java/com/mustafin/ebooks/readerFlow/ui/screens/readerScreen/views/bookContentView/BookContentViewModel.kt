@@ -5,8 +5,10 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
 import com.mustafin.ebooks.readerFlow.domain.models.BookModel
+import com.mustafin.ebooks.readerFlow.domain.models.ReaderProgressModel
 
 // ViewModel блока с текстом книги
 class BookContentViewModel(private val book: BookModel) : ViewModel() {
@@ -16,14 +18,18 @@ class BookContentViewModel(private val book: BookModel) : ViewModel() {
 
     // Сеттер для индекса последнего слова на странице в массиве
     fun setLastWordIndex(index: Int) {
+        println("Set last word: " + book.content[firstWordIndex + index])
         lastWordIndex = index
+        pages[pages.size-1] = book.content.subList(
+            firstWordIndex,
+            firstWordIndex + index + 1
+        )
+//        println(pages[pages.size-1])
         generateNextPage()
     }
 
     // Контент каждой из страниц
     var pages = mutableStateListOf<List<String>>()
-        private set
-    var firstWordsOfAllPages = mutableStateListOf<Int>()
         private set
 
     init {
@@ -39,12 +45,10 @@ class BookContentViewModel(private val book: BookModel) : ViewModel() {
                 (firstWordIndex + 1000).coerceAtMost(book.content.size)
             )
         )
-        firstWordsOfAllPages.add(firstWordIndex)
     }
 
     // Перелистывание на следующую страницу
     private fun generateNextPage() {
-        println(firstWordIndex)
         if (firstWordIndex + lastWordIndex!! < book.content.size - 1) {
             // Устанавливаем новые индексы
             firstWordIndex += lastWordIndex!!
@@ -52,5 +56,13 @@ class BookContentViewModel(private val book: BookModel) : ViewModel() {
             // Обновляем контент на странице
             loadContent()
         }
+    }
+
+    // Функция восстановления страницы
+    fun restoreProgress(readerProgressModel: ReaderProgressModel) {
+        firstWordIndex = readerProgressModel.lastPageFirstWordIndex
+        lastWordIndex = null
+        pages.clear()
+        pages.addAll(readerProgressModel.rendered)
     }
 }

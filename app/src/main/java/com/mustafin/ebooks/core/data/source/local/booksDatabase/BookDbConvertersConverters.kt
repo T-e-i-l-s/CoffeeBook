@@ -15,14 +15,4 @@ class BookDbConvertersConverters {
     fun booksListFromString(value: String): List<String> {
         return Json.decodeFromString(ListSerializer(String.serializer()), value)
     }
-
-    @TypeConverter
-    fun renderedListToString(content: List<List<String>>): String {
-        return Json.encodeToString(ListSerializer(ListSerializer(String.serializer())), content)
-    }
-
-    @TypeConverter
-    fun renderedListFromString(value: String): List<List<String>> {
-        return Json.decodeFromString(ListSerializer(ListSerializer(String.serializer())), value)
-    }
 }

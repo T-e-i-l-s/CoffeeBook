@@ -10,9 +10,6 @@ interface BooksDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addBook(book: BookEntity)
 
-    @Query("UPDATE books SET rendered = :rendered WHERE id = :bookId")
-    suspend fun updateProgress(bookId: Int, rendered: String)
-
     @Query("SELECT * FROM books ORDER BY id DESC")
     suspend fun getBooks(): List<BookEntity>
 
