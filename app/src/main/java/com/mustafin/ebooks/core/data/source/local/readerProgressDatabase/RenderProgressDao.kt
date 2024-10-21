@@ -1,4 +1,4 @@
-package com.mustafin.ebooks.readerFlow.data.source.local.readerProgressDatabase
+package com.mustafin.ebooks.core.data.source.local.readerProgressDatabase
 
 import androidx.room.Dao
 import androidx.room.Insert

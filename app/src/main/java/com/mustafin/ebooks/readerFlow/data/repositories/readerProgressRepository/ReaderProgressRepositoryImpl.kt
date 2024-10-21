@@ -1,7 +1,7 @@
 package com.mustafin.ebooks.readerFlow.data.repositories.readerProgressRepository
 
-import com.mustafin.ebooks.readerFlow.data.source.local.readerProgressDatabase.ReaderProgressDatabase
-import com.mustafin.ebooks.readerFlow.data.source.local.readerProgressDatabase.ReaderProgressEntity
+import com.mustafin.ebooks.core.data.source.local.readerProgressDatabase.ReaderProgressDatabase
+import com.mustafin.ebooks.core.data.source.local.readerProgressDatabase.ReaderProgressEntity
 import com.mustafin.ebooks.readerFlow.domain.models.ReaderProgressModel
 import javax.inject.Inject
 

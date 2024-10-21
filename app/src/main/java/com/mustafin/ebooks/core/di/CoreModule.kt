@@ -7,6 +7,7 @@ import com.mustafin.ebooks.core.data.repositories.booksRepository.BooksRepositor
 import com.mustafin.ebooks.core.data.repositories.statisticsRepository.StatisticsRepository
 import com.mustafin.ebooks.core.data.repositories.statisticsRepository.StatisticsRepositoryImpl
 import com.mustafin.ebooks.core.data.source.local.booksDatabase.BooksDatabase
+import com.mustafin.ebooks.core.data.source.local.readerProgressDatabase.ReaderProgressDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,8 +26,11 @@ object CoreModule {
 
     @Provides
     @Singleton
-    fun provideBooksRepository(booksDatabase: BooksDatabase): BooksRepository {
-        return BooksRepositoryImpl(booksDatabase)
+    fun provideBooksRepository(
+        booksDatabase: BooksDatabase,
+        readerProgressDatabase: ReaderProgressDatabase
+    ): BooksRepository {
+        return BooksRepositoryImpl(booksDatabase, readerProgressDatabase)
     }
 
     @Provides
@@ -35,7 +39,18 @@ object CoreModule {
         return Room.databaseBuilder(
             context.applicationContext,
             BooksDatabase::class.java,
-            "books_database" // Имя базы данных
+            "books_database"
         ).build()
     }
+
+    @Provides
+    @Singleton
+    fun provideReaderProgressDatabase(@ApplicationContext context: Context): ReaderProgressDatabase {
+        return Room.databaseBuilder(
+            context.applicationContext,
+            ReaderProgressDatabase::class.java,
+            "reader_progress_database"
+        ).build()
+    }
+
 }

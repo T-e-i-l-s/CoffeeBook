@@ -16,6 +16,7 @@
     <string name="reading_time_per_day">Сегодня</string>
     <string name="summary_reading_time">За все время</string>
     <string name="summarization">Пересказ</string>
+    <string name="was_read">Прочитано</string>
 
     <!--  View добавления книги  -->
     <string name="select_file">Выбрать .pdf файл</string>

@@ -7,4 +7,5 @@ data class ShortBookModel(
     val id: Int,
     val name: String,
     val preview: Bitmap,
+    val progress: Float
 )
