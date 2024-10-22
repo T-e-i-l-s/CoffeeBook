@@ -26,7 +26,6 @@ fun BookContentView(
     LaunchedEffect(Unit) {
         if (readerProgress.rendered.size > 1) {
             viewModel.restoreProgress(readerProgress)
-            println("S1: " + readerProgress.rendered.size)
             pagerState.scrollToPage(viewModel.pages.size+1)
         }
     }
@@ -36,12 +35,12 @@ fun BookContentView(
         for (i in 0..<pagerState.currentPage) {
             wordsSum += viewModel.pages[i].size
         }
-        println("S2: " + viewModel.pages.subList(0, pagerState.currentPage+1).size)
+        wordsSum -= pagerState.currentPage
         setReadingProgress(
             wordsSum.toFloat() / book.content.size,
             ReaderProgressModel(
                 viewModel.pages.subList(0, pagerState.currentPage+1),
-                wordsSum+1
+                wordsSum
             )
         )
     }
