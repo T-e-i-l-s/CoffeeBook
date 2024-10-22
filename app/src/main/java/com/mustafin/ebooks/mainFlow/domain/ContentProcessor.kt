@@ -4,7 +4,7 @@ package com.mustafin.ebooks.mainFlow.domain
 object ContentProcessor {
     // Функция, которая превращает текст книги в массив из слов, знаков и спец символов
     fun separateContent(content: String): List<String> {
-        val regex = Regex("""(\w+|[^\w\s]|[\n])""")
+        val regex = Regex("""\w+(?:[.,;:?!]+)?|\.{2,}|[^\w\s]|[.,;:?!]+|\n""")
         return regex.findAll(content).map { it.value }.toList()
     }
 }
