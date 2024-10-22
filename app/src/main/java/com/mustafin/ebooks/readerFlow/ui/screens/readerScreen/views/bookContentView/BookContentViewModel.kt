@@ -23,7 +23,6 @@ class BookContentViewModel(private val book: BookModel) : ViewModel() {
             firstWordIndex,
             firstWordIndex + index + 1
         )
-//        println(pages[pages.size-1])
         generateNextPage()
     }
 
