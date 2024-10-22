@@ -77,7 +77,7 @@ fun MenuView(book: BookModel, progress: Float, openHomeScreen: () -> Unit) {
             SmallButton(
                 label = stringResource(id = R.string.close_book),
                 background = colorResource(id = R.color.additional),
-                textColor = colorResource(id = R.color.background),
+                textColor = colorResource(id = R.color.white),
                 onClick = openHomeScreen
             )
         }

@@ -46,7 +46,8 @@ fun BooksView(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 12.dp),
+            .padding(horizontal = 12.dp)
+            .padding(top = 12.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {

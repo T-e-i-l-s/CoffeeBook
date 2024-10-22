@@ -30,6 +30,7 @@ class ReaderScreenViewModel @Inject constructor(
 
     // Книга, которая открыта в читалке
     lateinit var book: BookModel
+
     // Прогресс чтения открытой книги
     lateinit var readerProgress: ReaderProgressModel
 
@@ -41,13 +42,11 @@ class ReaderScreenViewModel @Inject constructor(
 
     // Функция полной загрузки данных
     fun loadData() {
-        viewModelScope.launch {
+        CoroutineScope(Dispatchers.IO).launch {
             loadingStatus = LoadingStatus.LOADING
-            withContext(Dispatchers.IO) {
-                book = booksRepository.getBookById(1) // TODO: Убрать заглушку
-                readerProgress = readerProgressRepository.getProgress(1)
-                readerSettings = readerSettingsRepository.getReaderSettings()
-            }
+            book = booksRepository.getBookById(1) // TODO: Убрать заглушку
+            readerProgress = readerProgressRepository.getProgress(1)
+            readerSettings = readerSettingsRepository.getReaderSettings()
             loadingStatus = LoadingStatus.LOADED
         }
     }

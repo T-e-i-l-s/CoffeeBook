@@ -1,5 +1,8 @@
 package com.mustafin.ebooks.core.ui.navigation
 
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -13,10 +16,22 @@ import kotlinx.serialization.Serializable
 // Экраны приложения для Type Safe Navigation
 @Serializable
 private object HomeScreen
+
 @Serializable
 private object AllBooksScreen
+
 @Serializable
 private data class ReaderScreen(val bookId: Int)
+
+// Анимации при навигации
+val slideIn = slideInHorizontally(
+    initialOffsetX = { it },
+    animationSpec = tween(500)
+)
+val slideOut = slideOutHorizontally(
+    targetOffsetX = { it },
+    animationSpec = tween(500)
+)
 
 // Граф навигации
 @Composable
@@ -33,7 +48,12 @@ fun NavigationGraph() {
         }
 
         // Экран с полным списком книг
-        composable<AllBooksScreen> {
+        composable<AllBooksScreen>(
+            enterTransition = { slideIn },
+            exitTransition = { slideOut },
+            popEnterTransition = { slideIn },
+            popExitTransition = { slideOut }
+        ) {
             AllBooksScreenView(
                 popBackNavigationStack = { navController.popBackStack() },
                 openReader = { bookId -> navController.navigate(ReaderScreen(bookId)) }

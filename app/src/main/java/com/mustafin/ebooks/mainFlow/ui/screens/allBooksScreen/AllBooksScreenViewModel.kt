@@ -9,6 +9,7 @@ import com.mustafin.ebooks.core.data.repositories.booksRepository.BooksRepositor
 import com.mustafin.ebooks.core.domain.enums.LoadingStatus
 import com.mustafin.ebooks.mainFlow.domain.models.ShortBookModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -18,7 +19,7 @@ import javax.inject.Inject
 @HiltViewModel
 class AllBooksScreenViewModel @Inject constructor(
     private val booksRepository: BooksRepository
-): ViewModel() {
+) : ViewModel() {
     var loadingStatus by mutableStateOf(LoadingStatus.LOADING)
         private set
 
@@ -30,10 +31,9 @@ class AllBooksScreenViewModel @Inject constructor(
     }
 
     private fun loadBooks() {
-        viewModelScope.launch {
-            books = withContext(Dispatchers.IO) {
-                booksRepository.getBooks()
-            }
+        CoroutineScope(Dispatchers.IO).launch {
+            loadingStatus = LoadingStatus.LOADING
+            books = booksRepository.getBooks()
             loadingStatus = LoadingStatus.LOADED
         }
     }

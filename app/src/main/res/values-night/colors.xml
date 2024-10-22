@@ -2,7 +2,8 @@
 <resources>
     <!--  Фоновые цвета  -->
     <color name="background">#101010</color>
-    <color name="secondary_background">#141414</color>
+    <color name="secondary_background">#1D1D1D</color>
+    <color name="ternary">#242424</color>
     <!--  Цвета контента  -->
     <color name="text">#E6E6E6</color>
     <color name="gray">#626262</color>

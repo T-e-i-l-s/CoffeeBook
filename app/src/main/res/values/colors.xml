@@ -3,6 +3,7 @@
     <!--  Фоновые цвета  -->
     <color name="background">#FFFFFF</color>
     <color name="secondary_background">#F8F7F5</color>
+    <color name="ternary">#EDEDED</color>
     <!--  Цвета контента  -->
     <color name="text">#000000</color>
     <color name="gray">#878787</color>

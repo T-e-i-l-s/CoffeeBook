@@ -78,18 +78,6 @@ fun BookInfoView(book: ShortBookModel, openReader: (bookId: Int) -> Unit) {
             )
 
             Column {
-                LinearProgressIndicator(
-                    progress = { book.progress },
-                    color = colorResource(id = R.color.additional),
-                    trackColor = colorResource(id = R.color.background),
-                    strokeCap = StrokeCap.Round,
-                    modifier = Modifier
-                        .height(9.dp)
-                        .fillMaxWidth()
-                )
-
-                Spacer(modifier = Modifier.height(3.dp))
-
                 Text(
                     text = "${stringResource(id = R.string.was_read)} ${(book.progress * 100).roundToInt()}%",
                     color = colorResource(id = R.color.gray),
@@ -97,12 +85,24 @@ fun BookInfoView(book: ShortBookModel, openReader: (bookId: Int) -> Unit) {
                     fontSize = 15.sp,
                     fontFamily = APP_DEFAULT_FONT,
                 )
+
+                Spacer(modifier = Modifier.height(3.dp))
+
+                LinearProgressIndicator(
+                    progress = { book.progress },
+                    color = colorResource(id = R.color.additional),
+                    trackColor = colorResource(id = R.color.ternary),
+                    strokeCap = StrokeCap.Round,
+                    modifier = Modifier
+                        .height(7.dp)
+                        .fillMaxWidth()
+                )
             }
 
             SmallButton(
                 label = stringResource(id = R.string.read),
                 background = colorResource(id = R.color.additional),
-                textColor = colorResource(id = R.color.background),
+                textColor = colorResource(id = R.color.white),
                 onClick = { openReader(book.id) },
             )
         }
