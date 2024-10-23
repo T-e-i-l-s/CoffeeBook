@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
@@ -40,6 +41,7 @@ fun StatisticsView() {
         modifier = Modifier
             .padding(horizontal = 12.dp)
             .fillMaxWidth()
+            .heightIn(min = 120.dp)
             .animateContentSize()
             .clip(RoundedCornerShape(12.dp))
             .background(colorResource(id = R.color.secondary_background))

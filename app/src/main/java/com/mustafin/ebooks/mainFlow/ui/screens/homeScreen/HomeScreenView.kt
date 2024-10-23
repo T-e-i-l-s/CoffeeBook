@@ -20,6 +20,7 @@ import com.mustafin.ebooks.R
 import com.mustafin.ebooks.mainFlow.ui.screens.homeScreen.views.addBookSheet.AddBookBottomSheetView
 import com.mustafin.ebooks.mainFlow.ui.screens.homeScreen.views.addBookSheet.AddBookViewModel
 import com.mustafin.ebooks.mainFlow.ui.screens.homeScreen.views.booksView.BooksView
+import com.mustafin.ebooks.mainFlow.ui.screens.homeScreen.views.optionsView.OptionsListView
 import com.mustafin.ebooks.mainFlow.ui.screens.homeScreen.views.statisticsView.StatisticsView
 
 // Главный экран приложения
@@ -52,9 +53,9 @@ fun HomeScreenView(
 
             StatisticsView()
 
-//            Spacer(modifier = Modifier.height(12.dp))
+            Spacer(modifier = Modifier.height(12.dp))
 
-//            BannerView(Modifier.padding(horizontal = 12.dp))
+            OptionsListView()
 
             Spacer(modifier = Modifier.navigationBarsPadding())
         }

@@ -65,7 +65,7 @@ fun NavigationGraph() {
             val args: ReaderScreen = it.toRoute()
             ReaderScreenView(
                 args.bookId,
-                openHomeScreen = { navController.navigate(HomeScreen) }
+                openHomeScreen = { navController.popBackStack() }
             )
         }
     }
