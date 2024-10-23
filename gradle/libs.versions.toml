@@ -3,6 +3,7 @@ agp = "8.5.1"
 analytics = "7.2.0"
 constraintlayoutCompose = "1.0.1"
 converterGson = "2.9.0"
+datastorePreferences = "1.1.1"
 hiltAndroidVersion = "2.49"
 hiltNavigationCompose = "1.2.0"
 itextg = "5.5.10"
@@ -25,6 +26,7 @@ roomKtx = "2.6.1"
 analytics = { module = "io.appmetrica.analytics:analytics", version.ref = "analytics" }
 androidx-constraintlayout-compose = { module = "androidx.constraintlayout:constraintlayout-compose", version.ref = "constraintlayoutCompose" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
 androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
 androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleRuntimeKtx" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }

@@ -70,6 +70,9 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     kapt(libs.androidx.room.compiler)
 
+    // Data Store
+    implementation(libs.androidx.datastore.preferences)
+
     // PDF
     implementation(libs.itextg)
 

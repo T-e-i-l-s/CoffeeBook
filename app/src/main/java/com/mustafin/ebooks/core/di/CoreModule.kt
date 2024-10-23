@@ -4,8 +4,6 @@ import android.content.Context
 import androidx.room.Room
 import com.mustafin.ebooks.core.data.repositories.booksRepository.BooksRepository
 import com.mustafin.ebooks.core.data.repositories.booksRepository.BooksRepositoryImpl
-import com.mustafin.ebooks.core.data.repositories.statisticsRepository.StatisticsRepository
-import com.mustafin.ebooks.core.data.repositories.statisticsRepository.StatisticsRepositoryImpl
 import com.mustafin.ebooks.core.data.source.local.booksDatabase.BooksDatabase
 import com.mustafin.ebooks.core.data.source.local.readerProgressDatabase.ReaderProgressDatabase
 import dagger.Module
@@ -18,12 +16,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object CoreModule {
-    @Provides
-    @Singleton
-    fun provideStatisticsRepository(): StatisticsRepository {
-        return StatisticsRepositoryImpl()
-    }
-
     @Provides
     @Singleton
     fun provideBooksRepository(
@@ -52,5 +44,4 @@ object CoreModule {
             "reader_progress_database"
         ).build()
     }
-
 }

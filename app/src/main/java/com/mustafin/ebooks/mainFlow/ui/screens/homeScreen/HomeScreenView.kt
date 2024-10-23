@@ -12,6 +12,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
@@ -21,7 +22,6 @@ import com.mustafin.ebooks.mainFlow.ui.screens.homeScreen.views.addBookSheet.Add
 import com.mustafin.ebooks.mainFlow.ui.screens.homeScreen.views.addBookSheet.AddBookViewModel
 import com.mustafin.ebooks.mainFlow.ui.screens.homeScreen.views.booksView.BooksView
 import com.mustafin.ebooks.mainFlow.ui.screens.homeScreen.views.optionsView.OptionsListView
-import com.mustafin.ebooks.mainFlow.ui.screens.homeScreen.views.statisticsView.StatisticsView
 
 // Главный экран приложения
 @OptIn(ExperimentalMaterial3Api::class)
@@ -31,6 +31,10 @@ fun HomeScreenView(
     openAllBooksScreen: () -> Unit,
 ) {
     val viewModel: HomeScreenViewModel = hiltViewModel()
+
+    LaunchedEffect(Unit) {
+        viewModel.loadData()
+    }
 
     LazyColumn(
         modifier = Modifier
@@ -48,10 +52,6 @@ fun HomeScreenView(
                 openReader = openReader,
                 openAllBooksScreen = openAllBooksScreen
             )
-
-            Spacer(modifier = Modifier.height(12.dp))
-
-            StatisticsView()
 
             Spacer(modifier = Modifier.height(12.dp))
 
@@ -75,7 +75,7 @@ fun HomeScreenView(
             containerColor = colorResource(id = R.color.background),
             windowInsets = WindowInsets(0, 0, 0, 0)
         ) {
-            AddBookBottomSheetView { viewModel.loadData() }
+            AddBookBottomSheetView(reloadBooksList = { viewModel.loadData() })
         }
     }
 }

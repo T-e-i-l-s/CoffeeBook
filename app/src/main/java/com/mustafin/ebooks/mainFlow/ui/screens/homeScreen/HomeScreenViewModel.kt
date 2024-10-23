@@ -25,16 +25,9 @@ class HomeScreenViewModel @Inject constructor(
     var books by mutableStateOf<List<ShortBookModel>>(emptyList())
         private set
 
-    init {
-        // При создании View Model загружем данные
-        loadData()
-    }
-
     fun loadData() {
         viewModelScope.launch {
-            books = withContext(Dispatchers.IO) {
-                booksRepository.getBooks()
-            }
+            books = withContext(Dispatchers.IO) { booksRepository.getBooks() }
             loadingStatus = LoadingStatus.LOADED
         }
     }

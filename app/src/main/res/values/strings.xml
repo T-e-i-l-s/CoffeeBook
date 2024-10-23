@@ -23,6 +23,7 @@
     <string name="terms_of_use">Условия использования</string>
     <string name="privacy_policy">Политика конфиденциальности</string>
     <string name="about_project">О проекте</string>
+    <string name="words">слов</string>
 
     <!--  View добавления книги  -->
     <string name="select_file">Выбрать .pdf файл</string>
