@@ -23,7 +23,11 @@ class StatisticsViewModel @Inject constructor(
     var statistics by mutableStateOf<StatisticsModel?>(null)
         private set
 
-    fun loadStatistics() {
+    init {
+        loadStatistics()
+    }
+
+    private fun loadStatistics() {
         viewModelScope.launch {
             statistics = statisticsRepository.getStatistics()
             loadingStatus = LoadingStatus.LOADED

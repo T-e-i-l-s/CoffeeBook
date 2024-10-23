@@ -56,11 +56,15 @@ class BookContentViewModel(private val book: BookModel) : ViewModel() {
         }
     }
 
+    var restored by mutableStateOf(false)
+        private set
+
     // Функция восстановления страницы
     fun restoreProgress(readerProgressModel: ReaderProgressModel) {
         firstWordIndex = readerProgressModel.lastPageFirstWordIndex
         lastWordIndex = null
         pages.clear()
         pages.addAll(readerProgressModel.rendered)
+        restored = true
     }
 }

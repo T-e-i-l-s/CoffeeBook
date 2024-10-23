@@ -18,13 +18,14 @@ fun BookContentView(
     setReadingProgress: (Float, ReaderProgressModel) -> Unit,
     onSelectWord: (String) -> Unit
 ) {
-    val viewModel: BookContentViewModel =
-        viewModel(factory = BookContentViewModelFactory(book))
+    val viewModel: BookContentViewModel = viewModel(
+        factory = BookContentViewModelFactory(book)
+    )
 
     val pagerState = rememberPagerState { viewModel.pages.size }
 
     LaunchedEffect(Unit) {
-        if (readerProgress.rendered.size > 1) {
+        if (!viewModel.restored && readerProgress.rendered.size > 1) {
             viewModel.restoreProgress(readerProgress)
             pagerState.scrollToPage(viewModel.pages.size+1)
         }

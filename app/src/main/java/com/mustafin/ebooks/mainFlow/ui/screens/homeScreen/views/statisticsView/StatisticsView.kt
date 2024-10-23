@@ -33,10 +33,6 @@ import com.mustafin.ebooks.core.ui.components.CustomProgressIndicator
 fun StatisticsView() {
     val viewModel: StatisticsViewModel = hiltViewModel()
 
-    LaunchedEffect(Unit) {
-        viewModel.loadStatistics()
-    }
-
     Column(
         modifier = Modifier
             .padding(horizontal = 12.dp)

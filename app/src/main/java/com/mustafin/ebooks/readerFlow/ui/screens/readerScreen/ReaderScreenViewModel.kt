@@ -38,8 +38,12 @@ class ReaderScreenViewModel @Inject constructor(
     // Открыто ли меню
     var showMenu by mutableStateOf(false)
 
+    init {
+        loadData()
+    }
+
     // Функция полной загрузки данных
-    fun loadData() {
+    private fun loadData() {
         CoroutineScope(Dispatchers.IO).launch {
             loadingStatus = LoadingStatus.LOADING
             book = booksRepository.getBookById(1) // TODO: Убрать заглушку
