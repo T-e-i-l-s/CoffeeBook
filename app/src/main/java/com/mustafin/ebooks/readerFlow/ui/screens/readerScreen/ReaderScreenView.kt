@@ -36,6 +36,11 @@ import com.mustafin.ebooks.readerFlow.ui.screens.readerScreen.views.wordMeaningV
 fun ReaderScreenView(bookId: Int, openHomeScreen: () -> Unit) {
     val viewModel: ReaderScreenViewModel = hiltViewModel()
 
+    LaunchedEffect(bookId) {
+        println("New book id ${bookId}")
+        viewModel.setBookId(bookId)
+    }
+
     Column(
         modifier = Modifier
             .statusBarsPadding()

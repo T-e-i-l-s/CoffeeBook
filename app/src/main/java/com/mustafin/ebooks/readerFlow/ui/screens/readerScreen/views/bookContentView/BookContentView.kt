@@ -16,7 +16,7 @@ fun BookContentView(
     readerProgress: ReaderProgressModel,
     modifier: Modifier,
     setReadingProgress: (Float, ReaderProgressModel) -> Unit,
-    onSelectWord: (String) -> Unit
+    onSelectWord: (String) -> Unit,
 ) {
     val viewModel: BookContentViewModel = viewModel(
         factory = BookContentViewModelFactory(book)

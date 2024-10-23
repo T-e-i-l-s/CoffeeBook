@@ -38,7 +38,10 @@ class ReaderScreenViewModel @Inject constructor(
     // Открыто ли меню
     var showMenu by mutableStateOf(false)
 
-    init {
+    private var bookId: Int? = null
+
+    fun setBookId(booksId: Int) {
+        this.bookId = booksId
         loadData()
     }
 
@@ -46,8 +49,8 @@ class ReaderScreenViewModel @Inject constructor(
     private fun loadData() {
         CoroutineScope(Dispatchers.IO).launch {
             loadingStatus = LoadingStatus.LOADING
-            book = booksRepository.getBookById(1) // TODO: Убрать заглушку
-            readerProgress = readerProgressRepository.getProgress(1)
+            book = booksRepository.getBookById(bookId!!)
+            readerProgress = readerProgressRepository.getProgress(bookId!!)
             readerSettings = readerSettingsRepository.getReaderSettings()
             loadingStatus = LoadingStatus.LOADED
         }
