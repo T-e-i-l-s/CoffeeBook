@@ -5,8 +5,6 @@ import com.mustafin.ebooks.readerFlow.data.repositories.dictionaryRepository.Dic
 import com.mustafin.ebooks.readerFlow.data.repositories.dictionaryRepository.DictionaryRepositoryImpl
 import com.mustafin.ebooks.readerFlow.data.repositories.readerProgressRepository.ReaderProgressRepository
 import com.mustafin.ebooks.readerFlow.data.repositories.readerProgressRepository.ReaderProgressRepositoryImpl
-import com.mustafin.ebooks.readerFlow.data.repositories.readerSettingsRepository.ReaderSettingsRepository
-import com.mustafin.ebooks.readerFlow.data.repositories.readerSettingsRepository.ReaderSettingsRepositoryImpl
 import com.mustafin.ebooks.readerFlow.data.source.network.dictionaryApi.DictionaryApi
 import com.mustafin.ebooks.readerFlow.domain.DICTIONARY_API_BASE_URL
 import dagger.Module
@@ -33,12 +31,6 @@ object ReaderModule {
     @Singleton
     fun provideReaderProgressRepository(readerProgressDatabase: ReaderProgressDatabase): ReaderProgressRepository {
         return ReaderProgressRepositoryImpl(readerProgressDatabase)
-    }
-
-    @Provides
-    @Singleton
-    fun provideReaderSettingsRepository(): ReaderSettingsRepository {
-        return ReaderSettingsRepositoryImpl()
     }
 
     @Provides

@@ -26,10 +26,12 @@ import androidx.compose.ui.layout.LayoutCoordinates
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInParent
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mustafin.ebooks.R
 import com.mustafin.ebooks.core.domain.APP_DEFAULT_FONT
+import com.mustafin.ebooks.readerFlow.domain.READER_FONT
 
 // View с текстом одной страницы книги
 @OptIn(ExperimentalLayoutApi::class)
@@ -63,7 +65,6 @@ fun ContentFlowRow(
 
         val onGlobalyPoistoned: (LayoutCoordinates) -> Unit = { it ->
             if (
-            // FIXME: Сдлеать чтобы расчет высоты шел красиво
                 it.positionInParent().y + 200 >
                 (parentHeight.value ?: Int.MAX_VALUE)
             ) {
@@ -84,12 +85,12 @@ fun ContentFlowRow(
                         .onGloballyPositioned { onGlobalyPoistoned(it) }
                 )
             } else {
-                // FIXME: Исправить порядок рендера слов, иногда они обрезаются
                 Text(
                     text = currentPageContent[index],
                     color = colorResource(id = R.color.text),
-                    fontSize = 18.sp,
-                    fontFamily = APP_DEFAULT_FONT,
+                    fontSize = 21.sp,
+                    fontFamily = READER_FONT,
+                    fontWeight = FontWeight.Medium,
                     modifier = Modifier
                         .onGloballyPositioned { onGlobalyPoistoned(it) }
                         .clickable(

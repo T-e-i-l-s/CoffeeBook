@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 import com.mustafin.ebooks.core.data.repositories.booksRepository.BooksRepository
 import com.mustafin.ebooks.core.domain.enums.LoadingStatus
 import com.mustafin.ebooks.readerFlow.data.repositories.readerProgressRepository.ReaderProgressRepository
-import com.mustafin.ebooks.readerFlow.data.repositories.readerSettingsRepository.ReaderSettingsRepository
 import com.mustafin.ebooks.readerFlow.domain.models.BookModel
 import com.mustafin.ebooks.readerFlow.domain.models.ReaderProgressModel
 import com.mustafin.ebooks.readerFlow.domain.models.ReaderSettingsModel
@@ -21,8 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ReaderScreenViewModel @Inject constructor(
     private val booksRepository: BooksRepository,
-    private val readerProgressRepository: ReaderProgressRepository,
-    private val readerSettingsRepository: ReaderSettingsRepository
+    private val readerProgressRepository: ReaderProgressRepository
 ) : ViewModel() {
     var loadingStatus by mutableStateOf(LoadingStatus.LOADING)
 
@@ -51,7 +49,6 @@ class ReaderScreenViewModel @Inject constructor(
             loadingStatus = LoadingStatus.LOADING
             book = booksRepository.getBookById(bookId!!)
             readerProgress = readerProgressRepository.getProgress(bookId!!)
-            readerSettings = readerSettingsRepository.getReaderSettings()
             loadingStatus = LoadingStatus.LOADED
         }
     }
