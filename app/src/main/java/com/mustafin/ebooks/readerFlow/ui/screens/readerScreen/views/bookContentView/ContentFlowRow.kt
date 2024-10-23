@@ -30,7 +30,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mustafin.ebooks.R
-import com.mustafin.ebooks.core.domain.APP_DEFAULT_FONT
 import com.mustafin.ebooks.readerFlow.domain.READER_FONT
 
 // View с текстом одной страницы книги
@@ -39,7 +38,7 @@ import com.mustafin.ebooks.readerFlow.domain.READER_FONT
 fun ContentFlowRow(
     currentPageContent: List<String>,
     setLastWordIndex: (Int) -> Unit,
-    onSelectWord: (String) -> Unit,
+    onSelectWord: (String, String) -> Unit,
 ) {
     // Было ли отображено последнее слово
     val isLastWordSelected = remember { mutableStateOf(false) }
@@ -96,7 +95,18 @@ fun ContentFlowRow(
                         .clickable(
                             interactionSource = remember { MutableInteractionSource() },
                             indication = null
-                        ) { onSelectWord(currentPageContent[index]) }
+                        ) {
+                            var context = ""
+                            currentPageContent.subList(
+                                0.coerceAtLeast(index - 5),
+                                currentPageContent.size.coerceAtMost(index + 5)
+                            ).forEach { context += "$it " }
+
+                            onSelectWord(
+                                currentPageContent[index],
+                                context
+                            )
+                        }
                 )
             }
         }

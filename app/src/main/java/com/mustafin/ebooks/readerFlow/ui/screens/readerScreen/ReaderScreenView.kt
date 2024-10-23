@@ -37,7 +37,6 @@ fun ReaderScreenView(bookId: Int, openHomeScreen: () -> Unit) {
     val viewModel: ReaderScreenViewModel = hiltViewModel()
 
     LaunchedEffect(bookId) {
-        println("New book id ${bookId}")
         viewModel.setBookId(bookId)
     }
 
@@ -62,16 +61,16 @@ fun ReaderScreenView(bookId: Int, openHomeScreen: () -> Unit) {
                     readingProgress = progress
                     viewModel.saveRenderedPages(readerProgress)
                 },
-                onSelectWord = { viewModel.showWordMeaning(it) }
+                onSelectWord = {  word, context ->
+                    viewModel.showWordMeaning(word, context)
+                }
             )
 
             ControlBarView(viewModel.book.name, readingProgress) { viewModel.showMenu = true }
 
             if (viewModel.showMenu) {
                 ModalBottomSheet(
-                    onDismissRequest = {
-                        viewModel.showMenu = false
-                    },
+                    onDismissRequest = { viewModel.showMenu = false },
                     containerColor = colorResource(id = R.color.background),
                     windowInsets = WindowInsets(0, 0, 0, 0)
                 ) {
@@ -85,13 +84,11 @@ fun ReaderScreenView(bookId: Int, openHomeScreen: () -> Unit) {
 
             if (viewModel.showWordMeaning) {
                 ModalBottomSheet(
-                    onDismissRequest = {
-                        viewModel.resetSelection()
-                    },
+                    onDismissRequest = { viewModel.resetSelection() },
                     containerColor = colorResource(id = R.color.background),
                     windowInsets = WindowInsets(0, 0, 0, 0)
                 ) {
-                    WordMeaningView(viewModel.selectedWord!!)
+                    WordMeaningView(viewModel.selectedWord!!, viewModel.selectedContext!!)
                 }
             }
         } else if (viewModel.loadingStatus == LoadingStatus.LOADING) {

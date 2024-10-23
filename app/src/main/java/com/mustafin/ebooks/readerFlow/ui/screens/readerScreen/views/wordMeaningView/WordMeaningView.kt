@@ -24,11 +24,11 @@ import com.mustafin.ebooks.core.ui.components.CustomProgressIndicator
 
 // View меню с информацией о книге и найтройками ридера
 @Composable
-fun WordMeaningView(word: String) {
+fun WordMeaningView(word: String, context: String) {
     val viewModel: WordMeaningViewModel = hiltViewModel()
 
     LaunchedEffect(Unit) {
-        viewModel.getWordMeaning(word)
+        viewModel.getWordMeaning(word, context)
     }
 
     Column(
@@ -65,7 +65,7 @@ fun WordMeaningView(word: String) {
                     }
                     else -> {
                         Text(
-                            text = viewModel.wordMeaning!!.description,
+                            text = viewModel.wordMeaning!!,
                             color = colorResource(id = R.color.text),
                             fontSize = 15.sp,
                             fontFamily = APP_DEFAULT_FONT,

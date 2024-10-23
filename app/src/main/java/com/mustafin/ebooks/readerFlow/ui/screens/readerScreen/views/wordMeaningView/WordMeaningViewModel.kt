@@ -8,7 +8,6 @@ import androidx.lifecycle.viewModelScope
 import com.mustafin.ebooks.core.domain.enums.LoadingStatus
 import com.mustafin.ebooks.core.domain.enums.ResponseStatus
 import com.mustafin.ebooks.readerFlow.data.repositories.dictionaryRepository.DictionaryRepository
-import com.mustafin.ebooks.readerFlow.domain.models.WordMeaningModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -20,13 +19,13 @@ class WordMeaningViewModel @Inject constructor(
     var loadingStatus by mutableStateOf(LoadingStatus.LOADING)
         private set
 
-    var wordMeaning by mutableStateOf<WordMeaningModel?>(null)
+    var wordMeaning by mutableStateOf<String?>(null)
 
-    fun getWordMeaning(word: String) {
+    fun getWordMeaning(word: String, context: String) {
         viewModelScope.launch {
             loadingStatus = LoadingStatus.LOADING
 
-            val getWordMeaningResult = dictionaryRepository.getWordMeaning(word)
+            val getWordMeaningResult = dictionaryRepository.getWordMeaning(word, context)
 
             if (getWordMeaningResult.first != ResponseStatus.SUCCESS) {
                 loadingStatus = LoadingStatus.ERROR

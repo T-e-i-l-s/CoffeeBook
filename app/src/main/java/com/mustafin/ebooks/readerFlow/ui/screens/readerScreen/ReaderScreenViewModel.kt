@@ -30,9 +30,6 @@ class ReaderScreenViewModel @Inject constructor(
     // Прогресс чтения открытой книги
     lateinit var readerProgress: ReaderProgressModel
 
-    // Настройки читалки
-    private var readerSettings by mutableStateOf<ReaderSettingsModel?>(null)
-
     // Открыто ли меню
     var showMenu by mutableStateOf(false)
 
@@ -64,12 +61,15 @@ class ReaderScreenViewModel @Inject constructor(
     var showWordMeaning by mutableStateOf(false)
         private set
 
-    // Слово, значение которого нужно показать
+    // Слово и его контекст, значение которого нужно показать
     var selectedWord by mutableStateOf<String?>(null)
         private set
+    var selectedContext by mutableStateOf<String?>(null)
+        private set
 
-    fun showWordMeaning(word: String) {
+    fun showWordMeaning(word: String, context: String) {
         selectedWord = word
+        selectedContext = context
         showWordMeaning = true
     }
 

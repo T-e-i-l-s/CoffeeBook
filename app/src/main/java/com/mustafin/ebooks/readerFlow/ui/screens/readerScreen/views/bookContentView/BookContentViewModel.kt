@@ -17,7 +17,6 @@ class BookContentViewModel(private val book: BookModel) : ViewModel() {
 
     // Сеттер для индекса последнего слова на странице в массиве
     fun setLastWordIndex(index: Int) {
-        println("Set last word: " + book.content[firstWordIndex + index])
         lastWordIndex = index
         pages[pages.size-1] = book.content.subList(
             firstWordIndex,
