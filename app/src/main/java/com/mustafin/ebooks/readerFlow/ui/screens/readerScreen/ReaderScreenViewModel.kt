@@ -9,7 +9,6 @@ import com.mustafin.ebooks.core.domain.enums.LoadingStatus
 import com.mustafin.ebooks.readerFlow.data.repositories.readerProgressRepository.ReaderProgressRepository
 import com.mustafin.ebooks.readerFlow.domain.models.BookModel
 import com.mustafin.ebooks.readerFlow.domain.models.ReaderProgressModel
-import com.mustafin.ebooks.readerFlow.domain.models.ReaderSettingsModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

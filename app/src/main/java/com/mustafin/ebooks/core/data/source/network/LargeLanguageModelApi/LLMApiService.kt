@@ -1,4 +1,4 @@
-package com.mustafin.ebooks.readerFlow.data.source.network.dictionaryApi
+package com.mustafin.ebooks.core.data.source.network.LargeLanguageModelApi
 
 import com.mustafin.ebooks.core.domain.LLM_API_KEY
 import retrofit2.Response
@@ -7,7 +7,7 @@ import retrofit2.http.Header
 import retrofit2.http.Headers
 import retrofit2.http.POST
 
-interface DictionaryService {
+interface LLMApiService {
     @POST("chat/completions")
     @Headers("Accept: application/json")
     suspend fun getWordMeaning(

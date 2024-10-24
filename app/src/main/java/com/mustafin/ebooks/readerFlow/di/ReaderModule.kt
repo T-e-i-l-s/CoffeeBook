@@ -1,40 +1,20 @@
 package com.mustafin.ebooks.readerFlow.di
 
 import com.mustafin.ebooks.core.data.source.local.readerProgressDatabase.ReaderProgressDatabase
+import com.mustafin.ebooks.core.data.source.network.LargeLanguageModelApi.LLMApi
 import com.mustafin.ebooks.readerFlow.data.repositories.dictionaryRepository.DictionaryRepository
 import com.mustafin.ebooks.readerFlow.data.repositories.dictionaryRepository.DictionaryRepositoryImpl
 import com.mustafin.ebooks.readerFlow.data.repositories.readerProgressRepository.ReaderProgressRepository
 import com.mustafin.ebooks.readerFlow.data.repositories.readerProgressRepository.ReaderProgressRepositoryImpl
-import com.mustafin.ebooks.readerFlow.data.source.network.dictionaryApi.DictionaryApi
-import com.mustafin.ebooks.readerFlow.domain.DICTIONARY_API_BASE_URL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import okhttp3.OkHttpClient
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object ReaderModule {
-    @Provides
-    @Singleton
-    fun provideRetrofit(): Retrofit {
-        val okHttpClient = OkHttpClient.Builder()
-            .connectTimeout(30, TimeUnit.SECONDS)
-            .readTimeout(30, TimeUnit.SECONDS)
-            .writeTimeout(30, TimeUnit.SECONDS)
-            .build()
-        return Retrofit.Builder()
-            .baseUrl(DICTIONARY_API_BASE_URL)
-            .client(okHttpClient)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-    }
-
     @Provides
     @Singleton
     fun provideReaderProgressRepository(readerProgressDatabase: ReaderProgressDatabase): ReaderProgressRepository {
@@ -43,13 +23,7 @@ object ReaderModule {
 
     @Provides
     @Singleton
-    fun provideDictionaryApi(retrofit: Retrofit): DictionaryApi {
-        return DictionaryApi(retrofit)
-    }
-
-    @Provides
-    @Singleton
-    fun provideDictionaryRepository(dictionaryApi: DictionaryApi): DictionaryRepository {
+    fun provideDictionaryRepository(dictionaryApi: LLMApi): DictionaryRepository {
         return DictionaryRepositoryImpl(dictionaryApi)
     }
 }

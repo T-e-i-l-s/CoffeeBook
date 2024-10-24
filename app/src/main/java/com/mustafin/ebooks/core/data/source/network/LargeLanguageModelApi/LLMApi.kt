@@ -1,29 +1,23 @@
-package com.mustafin.ebooks.readerFlow.data.source.network.dictionaryApi
+package com.mustafin.ebooks.core.data.source.network.LargeLanguageModelApi
 
 import com.mustafin.ebooks.core.domain.enums.ResponseStatus
 import retrofit2.Retrofit
 import javax.inject.Inject
 
-class DictionaryApi @Inject constructor(retrofit: Retrofit) {
-    private val service: DictionaryService by lazy {
-        retrofit.create(DictionaryService::class.java)
+class LLMApi @Inject constructor(retrofit: Retrofit) {
+    private val service: LLMApiService by lazy {
+        retrofit.create(LLMApiService::class.java)
     }
 
     // Запрос на получение значения слова из сети
-    suspend fun getWordMeaning(
-        word: String,
-        context: String
-    ): Pair<ResponseStatus, String?> {
+    suspend fun getWordMeaning(prompt: String): Pair<ResponseStatus, String?> {
         return try {
             val response = service.getWordMeaning(
-                request = DictionaryService.GetWordMeaningRequestBody(
+                request = LLMApiService.GetWordMeaningRequestBody(
                     messages = listOf(
-                        DictionaryService.RequestMessageModel(
+                        LLMApiService.RequestMessageModel(
                             "user",
-                            "Дай определение слова ${word} в отрывке ${context}. " +
-                                    "В ответе пиши только само опрделение. " +
-                                    "Не давай четких определений именам собственным. " +
-                                    "Определение пиши на русском языке."
+                            prompt
                         )
                     )
                 )
