@@ -4,7 +4,9 @@
     <!--  Общее  -->
     <string name="add_book">Добавить книгу</string>
     <string name="add">Добавить</string>
-    <string name="loading_error">ошибка загрузки</string>
+    <string name="loading_error">Ошибка загрузки</string>
+    <string name="ai">Нейросеть</string>
+    <string name="by_ai">Сгенерировано нейросетью</string>
 
     <!--  Главный экран  -->
     <string name="my_books">Мои книги</string>

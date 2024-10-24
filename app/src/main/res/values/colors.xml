@@ -10,8 +10,7 @@
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
     <color name="additional">#289D6B</color>
-    <!--  Цвета промо баннера  -->
-    <color name="promo_banner_gradient_start">#289D6B</color>
-    <color name="promo_banner_gradient_end">#32BC81</color>
-    <color name="promo_banner_gradient_insert">#A10E432D</color>
+    <!--  Цвета маркера ИИ  -->
+    <color name="ai_marker_color1">#289D6B</color>
+    <color name="ai_marker_color2">#8BC5AC</color>
 </resources>

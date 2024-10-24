@@ -1,5 +1,6 @@
 package com.mustafin.ebooks.readerFlow.ui.screens.readerScreen.views.wordMeaningView
 
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -21,6 +22,7 @@ import com.mustafin.ebooks.R
 import com.mustafin.ebooks.core.domain.APP_DEFAULT_FONT
 import com.mustafin.ebooks.core.domain.enums.LoadingStatus
 import com.mustafin.ebooks.core.ui.components.CustomProgressIndicator
+import com.mustafin.ebooks.core.ui.views.AIMarker
 
 // View меню с информацией о книге и найтройками ридера
 @Composable
@@ -34,6 +36,7 @@ fun WordMeaningView(word: String, context: String) {
     Column(
         Modifier
             .fillMaxWidth()
+            .animateContentSize()
             .padding(horizontal = 12.dp)
             .padding(bottom = 12.dp)
             .navigationBarsPadding(),
@@ -50,7 +53,7 @@ fun WordMeaningView(word: String, context: String) {
 
         Spacer(modifier = Modifier.height(4.dp))
 
-        when(viewModel.loadingStatus) {
+        when (viewModel.loadingStatus) {
             LoadingStatus.LOADED -> {
                 when (viewModel.wordMeaning) {
                     null -> {
@@ -63,6 +66,7 @@ fun WordMeaningView(word: String, context: String) {
                             modifier = Modifier.fillMaxWidth()
                         )
                     }
+
                     else -> {
                         Text(
                             text = viewModel.wordMeaning!!,
@@ -72,12 +76,21 @@ fun WordMeaningView(word: String, context: String) {
                             fontWeight = FontWeight.Thin,
                             modifier = Modifier.fillMaxWidth()
                         )
+
+                        Spacer(modifier = Modifier.height(4.dp))
+                        
+                        AIMarker()
                     }
                 }
             }
+
             LoadingStatus.LOADING -> {
-                CustomProgressIndicator(color = colorResource(id = R.color.additional), size = 21.dp)
+                CustomProgressIndicator(
+                    color = colorResource(id = R.color.additional),
+                    size = 18.dp
+                )
             }
+
             LoadingStatus.ERROR -> {
                 Text(
                     text = stringResource(id = R.string.loading_error),
