@@ -29,6 +29,8 @@ class DictionaryApi @Inject constructor(retrofit: Retrofit) {
                 )
             )
 
+            println(response)
+
             if (response.isSuccessful) {
                 Pair(
                     ResponseStatus.SUCCESS,
@@ -40,6 +42,7 @@ class DictionaryApi @Inject constructor(retrofit: Retrofit) {
                 Pair(ResponseStatus.ERROR, null)
             }
         } catch (e: Exception) {
+            println(e)
             Pair(ResponseStatus.ERROR, null)
         }
     }
